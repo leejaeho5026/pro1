@@ -40,7 +40,7 @@
     .np{font-family: 'Nanum Pen Script', cursive;}*/
 
     .hd{ clear:both; width: 100%;}
-    .tnb{ clear:both; width: 100%; height: 24px; background-color: rgb(0, 183, 255);}    
+    .tnb{ clear:both; width: 100%; height: 30px; background-color: rgb(0, 183, 255);}    
     .gub{ clear:both; width: 100%; height: 120px; background-color: aqua;}
     .tnb_wrap{ clear: both; width: 1400px; margin: 0 auto; height: 20px; }
     .left_tnb {float: left;}
@@ -58,12 +58,24 @@
     .right_tnb li a.ico1 {background-image: url("./images/icon1.png");}
     */
     .tnb ul li a {color: red; font-size: 0.9em;}
-    .gub { clear: both; width: 100%; height: 120px; background-color: aquamarine;
+    .main { clear: both; width: 100%; height: 120px; background-color: aquamarine;
      border-bottom: 1px; solid:black;}
+    .main_wrap {width: 1400px; margin: 0 auto; position: relative;}
 
+    .logo {display: block; width: 120px; height: 45px; overflow: hidden;
+    position: absolute; top: 0px; left: 0;}
+    .logo img {display: block; width: 100px; height: auto;}
 
+    .gnb {position: relative;}
+    .gnb > ui{width: 800px; height: 48px; border: 1px solid #333; margin: 0 auto;}
+    .gnb > ui > li {float: left;}
 
-
+    .sitemap_btn { display: block; position: absolute; top: 0px;
+        right: 0px; cursor:pointer;}
+    .sitemap {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0px;
+        background-color: blueviolet; display: none;}
+    #sitemap_ck :checked~ .sitemap {display:block;}
+    #sitemap_ck {display: none;}
 
 </style>
 </head>
@@ -85,7 +97,16 @@
             </nav>    
             <nav calss="gnb">
             <div class="gnb_wrap">
-
+                            <li><a href="">메뉴1</a></li>
+                            <li><a href="">메뉴2</a></li>
+                            <li><a href="">메뉴3</a></li>
+                            <li><a href="">메뉴4</a></li>
+                            <li><a href="">메뉴5</a></li>
+                <input type=" checkbox" id="sitemap_ck">
+                <div class="sitemap">
+                    <lable for="sitemap_ck" class="close_btn">닫기</lable>
+                     여기는 사이트 맵               
+                </div>
             </div>
             </nav>
         </header>

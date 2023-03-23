@@ -68,11 +68,30 @@
 
     .gnb {position: relative;}
     .gnb > ui{width: 800px; height: 48px; border: 1px solid #333; margin: 0 auto;}
-    .gnb > ui > li {float: left;}
+    .gnb > ui > li {float: left; width: 20%; text-align: center;
+        line-height: 50px;}
+    .gnb > ui > li > a {display: block; font-size: 1.3em; color: #333;
+        font-weight: bold;}
+    .gnb > ui > li:hover > a {border-bottom: 2px solid aquamarine;
+        color:aquamarine;}
 
-    .sitemap_btn { display: block; position: absolute; top: 0px;
-        right: 0px; cursor:pointer;}
-    .sitemap {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0px;
+    .sub {display: none; padding-top: 20px; width: 1000px;}
+    .sub.item2{ margin-left: -240px;}
+    .sub.item3{ margin-left: -320px;}
+    .sub.item4{ margin-left: -480px;}
+    .sub.item5{ margin-left: -640px;}
+    .gnb > ul > li:hover > .sub{display: block;}
+    .sub > ul > li {float: left; width: 20%;}
+    .sub > ul > li > a {display: block; color:bisque; font-size: 1.1em;
+    font-weight: 500;}
+    .sub > ul > li:hover > a {color:blue;}
+
+
+    .sitemap_btn { display: block; position: absolute; top: 20px;
+        right: 0px; cursor:pointer; width: 20px; height: 20px; overflow: hidden;
+        text-indent: 99999px; background-image: ;
+        background-size: 20px 40px; background-position: center -20px;}
+    .sitemap {position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 999px;
         background-color: blueviolet; display: none;}
     #sitemap_ck :checked~ .sitemap {display:block;}
     #sitemap_ck {display: none;}
@@ -94,14 +113,79 @@
                         <li><a href="" class="sns3">A3</a></li>
                     </ul> 
                 </div>
-            </nav>    
-            <nav calss="gnb">
-            <div class="gnb_wrap">
-                            <li><a href="">메뉴1</a></li>
-                            <li><a href="">메뉴2</a></li>
-                            <li><a href="">메뉴3</a></li>
-                            <li><a href="">메뉴4</a></li>
-                            <li><a href="">메뉴5</a></li>
+            </nav>   
+            <div class="main">
+                <div class="main_wrap">
+                    <a href="" class="logo">
+                        <img src="./images/headerlogo_pc_kor.png" alt="CJ프레시웨이로고">
+                    </a> 
+                    <nav calss="gnb">
+                    <ui class="gnb_wrap">
+                            <li><a href="">COMPANY</a>
+                                <div class="sub">
+                                    <ui class="dp2">
+                                        <li><a href="">스마일게이트 소개</a></li>
+                                        <li><a href="">연혁</a></li>
+                                        <li><a href="">ICONIC 20</a></li>
+                                        <li><a href="">다양성과 포용성</a></li>
+                                    </ui>
+                                </div>
+                            </li>
+                            <li><a href="">BUSINESS</a>
+                                <div class="sub">
+                                    <ui class="dp2">
+                                        <li><a href="">게임</a></li>
+                                        <li><a href="">IP비즈니스&테크</a></li>
+                                        <li><a href="">투자</a></li>
+                                        <li><a href="">플랫폼</a></li>
+                                    </ui>
+                                </div>
+                            </li>
+                            <li><a href="">GAME</a>
+                                <div class="sub">
+                                    <ui class="dp2">
+                                        <li><a href="">크로스파이어</a></li>
+                                        <li><a href="">에픽세븐</a></li>
+                                        <li><a href="">로스트아크</a></li>
+                                        <li><a href="">크로스파이어X</a></li>
+                                        <li><a href="">마술양품점</a></li>
+                                        <li><a href="">슈퍼탱크대작전</a></li>
+                                        <li><a href="">테일즈런너</a></li>
+                                        <li><a href="">인디게임</a></li>
+                                    </ui>
+                                </div>
+                            </li>
+                            <li><a href="">MEDIA</a>
+                                <div class="sub">
+                                    <ui class="dp2">
+                                        <li><a href="">뉴스룸</a></li>
+                                        <li><a href="">IN THE PRESS</a></li>
+                                        <li><a href="">멀티미디어</a></li>          
+                                    </ui>
+                                </div>
+                            </li>
+                            <li><a href="">CAREER</a>
+                                <div class="sub">
+                                    <ui class="dp2">
+                                        <li><a href="">인재채용</a></li>   
+                                    </ui>
+                                </div>
+                            </li>
+                            <li><a href="">CONTRIBUTION</a>
+                                <div class="sub">
+                                    <ui class="dp2">
+                                        <li><a href="">창업지원</a></li>
+                                        <li><a href="">미래세대지원</a></li>
+                                        <li><a href="">창의창작지원</a></li>
+                                    </ui>
+                                </div>
+                            </li>
+                    </ui>
+                    </nav>
+                   
+                    
+                    
+                    <label for="sitemap_ck" class="sitemap_btn">사이트맵</label>
                 <input type=" checkbox" id="sitemap_ck">
                 <div class="sitemap">
                     <lable for="sitemap_ck" class="close_btn">닫기</lable>

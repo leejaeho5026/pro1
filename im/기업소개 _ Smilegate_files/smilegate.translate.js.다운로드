@@ -1,0 +1,134 @@
+var COMMON_PROPERTY = {
+    'gnb-01-01': {
+        ko: `스마일게이트 소개`,
+        en: `ABOUT SMILEGATE`,
+        ch: `Smilegate介绍`,
+    },
+    'gnb-01-02': {
+        ko: `연혁`,
+        en: `HISTORY`,
+        ch: `沿革`,
+    },
+    'gnb-01-03': {
+        ko: `ICONIC 20`,
+        en: `ICONIC 20`,
+        ch: `ICONIC 20`,
+    },
+    'gnb-01-04': {
+        ko: `다양성과 포용성`,
+        en: `DIVERSITY <br>AND INCLUSION`,
+        ch: `多元化及包容性`,
+    },
+    'gnb-02-01': {
+        ko: `게임`,
+        en: `GAME`,
+        ch: `游戏`,
+    },
+    'gnb-02-02': {
+        ko: `IP비즈니스&테크`,
+        en: `IP BUSINESS & TECH`,
+        ch: `IP 事业 & 技术`,
+    },
+    'gnb-02-03': {
+        ko: `투자`,
+        en: `INVESTMENT`,
+        ch: `投资`,
+    },
+    // 22.11.25
+    'gnb-02-04': {
+        ko: `플랫폼`,
+        en: `PLATFORM`,
+        ch: `平台`,
+    },
+    'gnb-03-01': {
+        ko: `크로스파이어`,
+        en: `CROSSFIRE`,
+        ch: `穿越火线`,
+    },
+    'gnb-03-02': {
+        ko: `에픽세븐`,
+        en: `EPIC SEVEN`,
+        ch: `第七史诗`,
+    },
+    'gnb-03-03': {
+        ko: `로스트아크`,
+        en: `LOST ARK`,
+        ch: `失落的方舟`,
+    },
+    'gnb-03-04': {
+        ko: `마술양품점`,
+        en: `MAGICAL ATELIER`,
+        // ch: `魔术洋货店`,
+        ch : `魔术精品店`
+    },
+    'gnb-03-05': {
+        ko: `소울워커`,
+        en: `SOUL WORKER`,
+        ch: `灵魂行者`,
+    },
+    'gnb-03-06': {
+        ko: `슈퍼탱크대작전`,
+        en: `SUPER TANK RUMBLE`,
+        ch: `超级战车大作战`,
+    },
+    'gnb-03-07': {
+        ko: `크로스파이어X`,
+        en: `CROSSFIREX`,
+        ch: `穿越火线X`,
+    },
+    'gnb-03-08': {
+        ko: `테일즈런너`,
+        en: `TALES RUNNER`,
+        ch: `超级跑跑`,
+    },
+    'gnb-03-09': {
+        ko: `인디게임`,
+        en: `INDIE GAME`,
+        ch: `独立游戏`,
+    },
+    'gnb-04-00': {
+        ko: `뉴스룸`,
+        en: `NEWSROOM`,
+        ch: `NEWSROOM`,
+    },
+    'gnb-04-01': {
+        ko: `In The Press`,
+        en: `X`,
+        ch: `X`,
+    },
+    'gnb-05-01': {
+        ko: `인재채용`,
+        en: `KOREA`,
+        ch: `KOREA`,
+    },
+    'gnb-05-02': {
+        ko: `인재채용`,
+        en: `BARCELONA`,
+        ch: `BARCELONA`,
+    },
+    'gnb-05-03': {
+        ko: `인재채용`,
+        en: `WEST`,
+        ch: `WEST`,
+    },
+    'gnb-06-01': {
+        ko: `창업지원`,
+        en: `FOR ENTREPRENEURSHIP`,
+        ch: `创业支援`,
+    },
+    'gnb-06-02': {
+        ko: `미래세대지원`,
+        en: `FOR FUTURE GENERATION`,
+        ch: `未来一代支援`,
+    },
+    'gnb-06-03': {
+        ko: `창의창작지원`,
+        en: `FOR CREATIVITY & CREATION`,
+        ch: `创意创造支援`,
+    },
+    'footer-04': {
+        ko: `오시는 길`,
+        en: `CONTACT`,
+        ch: `来访路线`,
+    },
+}

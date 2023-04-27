@@ -1,0 +1,1320 @@
+var page = {
+
+	gnb : {
+		onLoad : function(){
+			
+		}
+	} , 
+
+	main : {
+
+		onLoad : function(){
+
+			$(window).on('load', function(){
+				$('html, body').animate({scrollTop: 0});
+			});
+
+			// scrolldown 아이콘 애니메이션
+			var i = 0;
+			setInterval(function(){
+				if(i <= 18){
+					
+					var pos = i * 90;
+					i++;
+					// console.log(pos)
+					$('.scrolldown').css('background-position', '0px ' + (-pos) + 'px')
+
+				}
+				else {
+					i = 0;
+				}
+			}, 100);
+
+			// 메인 슬로건 페이드인
+			$('.main_first_scene').addClass('active');
+
+			// 슬로건 티커
+			page.main.sloganTicker();
+
+		},
+
+		// 메인 슬로건 티커
+		sloganTicker : function(){
+			var word1 = $('.main_first_scene .wrap_ticker .word1');
+			var word2 = $('.main_first_scene .wrap_ticker .word2');
+
+			var interval = 3500;
+			var speed = 1500;
+			var reset = 0;
+
+			setInterval(function(){
+				if(reset == 0){
+					word1.css({'top': -120 + 'px','opacity':0,'transition': (speed/1000) + 's'});
+					word2.css({'top': 0,'transition': (speed/1000) + 's'});
+
+					setTimeout(function(){
+						word1.css({'top': 120 + 'px','opacity':1,'transition':'0s'});
+					}, speed);
+					reset = 1;
+				}
+				else {
+					word1.css({'top': 0,'transition': (speed/1000) + 's'});
+					word2.css({'top': -120 + 'px','opacity':0,'transition': (speed/1000) + 's'});
+
+					setTimeout(function(){
+						word2.css({'top': 120 + 'px','opacity':1,'transition':'0s'});
+					}, speed);
+					reset = 0;
+				}
+			}, interval);
+		},
+
+		// 스크롤 화면전환
+		scrollPage : function(){
+			
+			var currentDirection = '';
+			var lastScrollTop = 0;
+			var movePosition = $('.main_etc_scene').offset().top;
+
+			$(window).on('scroll', function(event){
+
+				var currentPos = $(this).scrollTop();
+				if (currentPos > lastScrollTop){
+					// 아래로 스크롤
+					if(currentDirection != 'down') {
+						currentDirection = 'down';
+						console.log('down')
+						
+						if(currentPos > 0 && currentPos < 100 ){
+							$('body,html').one().animate({scrollTop: movePosition}, 1000);
+							
+						}
+					}
+				} 
+				else {
+					// 위로 스크롤
+					if(currentDirection != 'up') {
+						currentDirection = 'up';
+					}
+				}
+				lastScrollTop = currentPos; // 방향을 구하기 위해 마지막 스크롤 지점을 저장
+			});
+		},
+
+		// 공고목록 애니메이션
+		listAnimation : function(){
+			console.log("listAnimation");
+			var winTop = $(window).scrollTop();
+			var screen = $(window).height();
+			
+			var applyList = $('.main_etc_scene .list_category li:not(.list_show)');
+
+			if(winTop > 100){
+				var i = 0;
+				applyList.each(function(){
+					
+					var curPoint = $(this).offset().top - 300;
+					var scrollPoint = screen + winTop + 100;
+
+					var idx = i;
+					var interval = idx * 0.2
+					
+					if (scrollPoint > curPoint) {
+						if (!$(this).hasClass('list_show')) {
+
+							applyList.eq(idx).addClass('list_show');
+							applyList.eq(idx).css({
+								'transition-delay' : interval + 's',
+							});
+						}
+					}
+						
+					i++;
+				})
+			}
+			else {
+				$('.main_etc_scene .list_category li').removeClass('list_show');
+			}
+		},
+
+		// 메인 공지사항
+		 mainTopNotice : function(){
+			//메인 공지사항 display block 상태에 따른 pos값
+			var mainIs = $('body').hasClass('main');
+			var mainNoticeIs = $('body.main .top_main_notice').css('display');
+			var mainNoticeClose = $('body.main').find('[data-notice-close="notice_close"]')
+
+			if((mainIs) && (mainNoticeIs == 'block')){
+				$('body').find('#header').css('top', '70px')
+				$('body').find('#header_bg').css('top', '70px');
+			}
+			else{
+				$('body').find('#header').css('top', '0px')
+				$('body').find('#header_bg').css('top', '0px');
+			}
+
+			mainNoticeClose.on('click', function(){		
+				$('.top_main_notice').slideUp(500);
+				$('body').find('#header').css('top', '0px')
+				$('body').find('#header_bg').css('top', '0px');		
+			});
+		},
+
+
+		//메인 slide scene option
+		fullMain_Load : function(){
+			
+			$('#fullpage2').fullpage({
+				verticalCentered: true,
+				// paddingBottom: '100px',
+				fixedElements: '.top_main_notice, .pageTop, #footer_bg',
+				//sectionsColor: ['transprent', 'transprent', 'transprent'],
+				css3: false,
+				
+				//마지막 scene pageTop class add/remove
+				afterLoad: function(origin, destination, direction){
+					// var totSections = document.querySelectorAll('.fp-section').length;
+					var	numSections = $(this).closest('.section').index();					
+					
+					if(numSections == 2){												
+						$('body.main').find('.wrap_list_category').css( {'top':'497px', height:'calc(100vh - 539px)' } );
+						$('body.main').find('.pageTop').css({'bottom': '180px', 'transition':'0.3s'});
+					}					
+					else{
+						$('body.main').find('.wrap_list_category').css( {'top':'257px', height:'calc(100vh - 299px)' } );
+						$('body.main').find('.pageTop').css({'bottom': 0, 'transition':'0.3s'});
+					}
+				},
+            });
+		},
+
+
+		mainScrollDown : function(){
+			var winTop = $(window).scrollTop();
+
+			if (winTop > 50){
+				$('body.main #header').addClass('on');
+				$('.scrolldown').fadeOut(300);
+			}
+			else{
+				$('body.main #header').removeClass('on');
+				$('.scrolldown').fadeIn(300);
+			}			
+		},
+
+		//메인 프로젝트배너
+		projectBanner : function(){
+			var mainBannerSwiper = new Swiper(".mainBannerSwiper", {
+				init: false,
+				slidesPerView: 1,
+  				spaceBetween: 0,
+				// loop: true,
+				watchOverflow: true,
+				autoplay: {
+					delay: 4000,
+				},
+				navigation: {
+				  nextEl: ".swiper-button-next",
+				  prevEl: ".swiper-button-prev",
+				},
+				pagination: {
+					el: ".swiper-pagination",
+					clickable: true,
+				},
+			});
+
+			$('.swiper-stop').on("click",function(e){
+				if($(this).hasClass("on")){
+					$(this).removeClass("on");
+					mainBannerSwiper.autoplay.start();
+				}
+				else{
+					$(this).addClass("on");
+					mainBannerSwiper.autoplay.stop();
+				}
+			});
+			$('.swiper-slide').mouseenter(function(){
+				mainBannerSwiper.autoplay.stop();
+			}).mouseleave(function(){
+				mainBannerSwiper.autoplay.start();
+			});
+
+			// 스크롤 시 배너 모션
+			setTimeout(function(){
+
+				var displayPos = $('.scene_right').attr('data-display-pos');
+				
+				$(window).on('scroll', function(){
+					var winTop = $(window).scrollTop();
+					
+					if(winTop > displayPos){
+						$('.scene_right').addClass('on');
+						mainBannerSwiper.init();
+						mainBannerSwiper.autoplay.start();
+					}
+					else {
+						$('.scene_right').removeClass('on');
+						mainBannerSwiper.autoplay.stop();
+					}
+
+					// 푸터까지 스크롤 시 공고배너 위치 
+					var scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+					
+					if (scrollBottom >= $('#footer').height()){
+						$('.scene_right').removeClass('static').css('transition','0s');
+					}else {
+						$('.scene_right').addClass('static').css('transition','0s');
+					}
+				});
+
+			}, 350);
+		},
+
+		//메인 공고배너 모션
+
+		//공통 FAQ
+		commonFaq : function(){
+			var commonFaqSwiper = new Swiper(".commonFaqSwiper", {				
+  				spaceBetween: 10,
+				allowTouchMove: false,
+			});
+
+			//faq항목 클릭시 다음화면
+			$('.commonFaqSwiper .list_faq .box').on("click",function(e){
+				commonFaqSwiper.slideNext();
+				$('.wrap_pop_commonfaq .btn_pop_back').css('opacity', '1');
+			});
+
+			//이전버튼 클릭
+			$('.wrap_pop_commonfaq .btn_pop_back').on("click",function(e){
+				$('.wrap_pop_commonfaq .btn_pop_back').css('opacity', '0');
+				commonFaqSwiper.slidePrev();				
+			});
+
+			//faq레이어 보기 클릭
+			$('.pageTop .btn_faq').on("click",function(e){				
+				$('.wrap_pop_commonfaq').css('right', '0');
+			});
+
+			//faq레이어 닫기 클릭
+			$('.wrap_pop_commonfaq .btn_pop_close').on("click",function(e){				
+				$('.wrap_pop_commonfaq').css('right', '-100%');
+			});			
+		},
+
+
+		
+	},
+
+	// 지원자
+	apply : {
+		onLoad : function(){
+
+			// form 포커스될 때 오렌지 라인 적용
+			var inputBorder = $('input[type=text], textarea');
+            inputBorder.each(function(){
+                $(this).on('focus', function(){
+                    $(this).closest('.field_column').addClass('line');
+                }).on('blur', function(){
+                    $(this).closest('.field_column').removeClass('line');
+                });
+            });
+			
+		},
+
+		nodeClass : function(){
+			// field_column에 display:none이 아닌 노드에 first-child, last-child 적용
+			setTimeout(function(){
+				$('.box_wrap').each(function(){
+					$(this).find('.field_column').removeClass('visible').removeClass('first').removeClass('last');
+					$(this).find('.field_column').each(function(){
+						if(!($(this).css('display') == 'none')){
+							$(this).addClass('visible');
+						}
+					});
+					var field = $(this).find('.field_column.visible');
+					var num = field.length;
+					var i = 1;
+
+					field.eq(i-1).addClass('first');
+					for (i; i <= num; i++){
+						if(i == num){
+							field.eq(i-1).addClass('last');
+						}
+					}
+				})
+			}, 800)
+		},
+
+		// 인디케이터 클릭 시 해당 항목으로 페이지 스크롤
+		indicator : function(){
+			$('.floating_apply_form .go').each(function(){
+                $(this).on('click', function(){
+                    
+                    var goIdx = $(this).index();
+                    var itemPos = $('article.division').eq(goIdx).offset().top - 180;
+
+                    $('html, body').animate({scrollTop: itemPos}, 400);
+
+					setTimeout(function(){
+						$('.floating_apply_form .go').removeClass('on');
+                    	$(this).addClass('on');
+					}, 400);
+                });
+            });
+		},
+
+		// 스크롤 시 인디케이터 fixed & 지원서 작성항목 아이콘 활성화
+		itemScroll : function(){
+			
+			var winTop = $(window).scrollTop();
+			var pos = $('.apply_form').offset().top - 150;
+
+			if (winTop > pos){
+				$('.wrap_floating').addClass('fixed');
+			}
+			else {
+				$('.wrap_floating').removeClass('fixed');
+			}
+			
+			// 스크롤 빨리 할 경우 우측 작성항목 영역 높이값 작아지는 현상을 막기 위해 settimeout 적용.
+			setTimeout(function(){
+				var scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+				var calc = 430;	// css 상의 height (100vh - 430px)
+				var h = calc - scrollBottom + 80;
+				var wh = $(window).height() - calc;
+
+				if (scrollBottom < $('#footer').height() + 250){
+					$('.wrap_floating.fixed .wrap_list').css('height','calc(100vh - '+ (calc + h) +'px)')
+				}
+				else {
+					$('.wrap_floating.fixed .wrap_list').css('height', wh +'px')
+				}
+			}, 50);
+
+			var item = $('article.division');
+			for (var i=0; i < item.length; i++){
+				var itemPos = item.eq(i).offset().top;
+				var a = winTop - itemPos;
+				if(a < 0 && a > -400){
+					$('.floating_apply_form .go').removeClass('on');
+					$('.floating_apply_form .go').eq(i).addClass('on');
+					
+					// 스크롤 시 해당 작성항목을 항상 스크롤 상단으로 위치.
+                    // $('.wrap_list').mCustomScrollbar('scrollTo', $('.floating_apply_form .go').eq(i));
+				}
+			}
+
+			// 지원서작성항목이 하단 영역 넘어가명 숨기기
+			var itemHeight = $('.floating_apply_form').height();
+                    
+			if(itemHeight < 160){
+				$('.floating_apply_form').css('opacity','0');
+			}
+			else {
+				$('.floating_apply_form').css('opacity','1');
+			}
+		},
+
+		//Initialize Swiper : 모집공고 리스트 
+		swiper : {			
+			recruit : function(){
+				
+				var swiper = new Swiper('.swiper-container', {
+					speed: 900,
+					spaceBetween: 30,
+					slidesPerView: 2,
+					slidesPerGroup : 2,
+					autoplay: {
+						delay: 4000,
+						disableOnInteraction: true,
+					},
+					pagination: {
+						el: '.swiper-pagination',
+						clickable: true,
+					},			
+				}); 
+
+				
+				$('.swiper-stop').on("click",function(e){
+					if($(this).hasClass("on")){
+						$(this).removeClass("on");
+						swiper[1].autoplay.start();
+					}
+					else{
+						$(this).addClass("on");
+						swiper[1].autoplay.stop();
+					}
+				});
+				$('.swiper-slide').mouseenter(function(){
+					swiper[1].autoplay.stop();
+				}).mouseleave(function(){
+					swiper[1].autoplay.start();
+				});
+
+			},
+
+			advertising : function(){
+				
+				var swiper2 = new Swiper('.wrap_slider_advertising .swiper-container', {
+					speed: 900,
+					spaceBetween: 10,
+					slidesPerView: 1,
+					slidesPerGroup : 1,
+					autoplay: {
+						delay: 4000,
+						disableOnInteraction: true,
+					},
+					pagination: {
+						el: '.swiper-pagination',
+						clickable: true,
+					},			
+				}); 
+
+				$('.swiper-stop').on("click",function(e){
+					if($(this).hasClass("on")){
+						$(this).removeClass("on");
+						swiper2.autoplay.start();
+					}
+					else{
+						$(this).addClass("on");
+						swiper2.autoplay.stop();
+					}
+				});
+				// $('.swiper-slide').mouseenter(function(){
+				// 	swiper2.autoplay.stop();
+				// }).mouseleave(function(){
+				// 	swiper2.autoplay.start();
+				// });
+
+			},
+		},
+
+		// 학력정보 탭메뉴
+		educationTab : function(){
+			var tab = $('.tab_edu').find('.tab_type2');
+			
+			tab.on('click', function(){
+				tab.removeClass('on');
+				$(this).addClass('on');
+				
+				var idx = $(this).index();
+				
+				if(idx < 3){
+					$('.education').find('.edu_con').hide();
+					for (var i=0; i <= idx; i++){
+						$('.education').find('.edu_con').eq(i).show();
+					}
+					$('.education').find('.edu_con').eq(3).hide();
+				}
+				else {
+					$('.education').find('.edu_con').hide();
+					$('.education').find('.edu_con').eq(3).show();
+				}
+				
+			});
+			
+		},
+
+		//검정고시
+		gedlayer : function(){						
+			var ged1_click = $("input:checkbox[id=ged1]");			
+			var ged2_click = $("input:checkbox[id=ged2]");
+
+			ged1_click.on("click",function(e){
+				if($("input:checkbox[id=ged1]").is(":checked") == true) {
+					$("div[data-gedlayer=ged1_1]").hide();
+					$("div[data-gedlayer=ged1_2]").show();
+				}
+				else{
+					$("div[data-gedlayer=ged1_1]").show();
+					$("div[data-gedlayer=ged1_2]").hide();
+				}
+			});  
+			
+			ged2_click.on("click",function(e){
+				if($("input:checkbox[id=ged2]").is(":checked") == true) {
+					$("div[data-gedlayer=ged2_1]").hide();
+					$("div[data-gedlayer=ged2_2]").show();
+				}
+				else{
+					$("div[data-gedlayer=ged2_1]").show();
+					$("div[data-gedlayer=ged2_2]").hide();
+				}
+			});  
+		},
+
+		//대학교,대학원 전공추가
+		majoraddlayer : function(){						
+			var major1_del_click = $("span[data-majorbtn=del_1]");			
+			var major1_add_click = $("span[data-majorbtn=add_1]");
+			var major2_del_click = $("span[data-majorbtn=del_2]");			
+			var major2_add_click = $("span[data-majorbtn=add_2]");
+
+			major1_add_click.on("click",function(e){
+				$("div[data-majorlayer=major1]").show();
+				major1_add_click.hide();
+			});  
+			major2_add_click.on("click",function(e){
+				$("div[data-majorlayer=major2]").show();
+				major2_add_click.hide();
+			});  
+
+			major1_del_click.on("click",function(e){
+				$("div[data-majorlayer=major1]").hide();
+				major1_add_click.show();
+			});  
+			major2_del_click.on("click",function(e){
+				$("div[data-majorlayer=major2]").hide();
+				major2_add_click.show();
+			});  
+		},
+
+		// selectbox 선택 시 해당 항목 노출
+		selectInteraction : function(){
+
+			/**** 입사지원경로 ****/
+			/*
+			var targetLoc = $('.loc');
+			targetLoc.each(function(){
+				$(this).find('.custom_option').on('click', function() {
+					var idx = $(this).index();
+					var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');
+					if (opt == 'etc'){
+						$(this).closest(targetLoc).find('.etc').removeClass('hide');
+						$(this).closest(targetLoc).find('.box_wrap').addClass('expand');
+					}
+					else {
+						$(this).closest(targetLoc).find('.etc').addClass('hide');
+						$(this).closest(targetLoc).find('.box_wrap').removeClass('expand');
+					}
+					page.apply.nodeClass();
+				});
+			});
+			*/
+
+			$(document).on("click",".loc .custom_option",function() {
+				var idx = $(this).index();
+				
+					var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');
+					if (opt == 'etc'){
+						$(this).closest($(".loc")).find('.etc').removeClass('hide');
+						$(this).closest($(".loc")).find('.box_wrap').addClass('expand');
+					}
+					else {
+						$(this).closest($(".loc")).find('.etc').addClass('hide');
+						$(this).closest($(".loc")).find('.box_wrap').removeClass('expand');
+					}
+					page.apply.nodeClass();
+			})
+
+			/**** 경력사항 ****/
+			var targetCreerInfo = $('.career_info');
+			var targetCreerInfoWork = $('.career_info input.work');
+
+			// 기타 옵션 체크시 직접입력 노출
+			targetCreerInfo.find('.type_employment .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');
+				if (opt == 'etc'){
+					$(this).closest(targetCreerInfo).find('.etc').removeClass('hide');
+					// $(this).closest(targetCreerInfo).find('.resign').hide();
+					$(this).closest(targetCreerInfo).find('.etc').parents('.box_wrap').css('width','820px');
+				}
+				else {
+					$(this).closest(targetCreerInfo).find('.etc').addClass('hide');
+					// $(this).closest(targetCreerInfo).find('.resign').show();
+					$(this).closest(targetCreerInfo).find('.etc').parents('.box_wrap').css('width','410px');
+				}
+				page.apply.nodeClass();
+			});
+
+			targetCreerInfoWork.next('label').on('click', function(){
+
+				// 재직중 체크 해제 시 퇴사연월 노출
+				if(targetCreerInfoWork.is(':checked')){
+					$('.career_info .resign').show();
+					$('.career_info .resign2').parents('.box_wrap').css('width','820px');
+				}
+
+				// 재직중 체크 시 퇴사연월 숨김
+				else{
+					$('.career_info .resign').hide();
+					$('.career_info .resign2').parents('.box_wrap').css('width','410px');
+				}
+
+				page.apply.nodeClass();
+			})
+
+
+			/**** 프로젝트이력 ****/
+			var targetCreerPrj = $('.career_prj');
+
+			targetCreerPrj.find('.type_prj .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');				
+				if (opt == 'dev'){
+					//$(this).closest(targetCreerPrj).find('.prj_name1').addClass('reduce');
+					$(this).closest(targetCreerPrj).find('.genre').show();
+				}
+				else {
+					//$(this).closest(targetCreerPrj).find('.prj_name1').removeClass('reduce');
+					$(this).closest(targetCreerPrj).find('.genre').hide();
+				}
+
+				targetCreerPrj.find('.type_genre .custom_option').on('click', function() {
+					var idx = $(this).index();
+					var genre = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-genre');
+
+					if (genre == 'etc'){
+						$(this).closest(targetCreerPrj).find('.box_wrap.genre').css('width', '820px')
+						$(this).closest(targetCreerPrj).find('.etc').show();
+					}
+					else {						
+						$(this).closest(targetCreerPrj).find('.box_wrap.genre').css('width', '410px')
+						$(this).closest(targetCreerPrj).find('.etc').hide();
+					}
+				});	
+
+				
+				page.apply.nodeClass();
+			});
+
+			// 고용형태 기타 선택 시
+			targetCreerPrj.find('.employment .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');
+
+				if (opt == 'etc'){
+					$(this).closest('.field_column').css('width', '205px')
+					$(this).closest(targetCreerPrj).find('.etc').show();
+				}
+				else {						
+					$(this).closest('.field_column').css('width', '410px')
+					$(this).closest(targetCreerPrj).find('.etc').hide();
+				}
+			})
+
+			/**** 스마일게이트 프로그램 참가이력 ****/
+			var targetSmgProgram = $('.smg_program');
+
+			targetSmgProgram.find('.type_program .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');
+				if (opt == 'etc'){
+					$(this).closest(targetSmgProgram).find('.sel').css('width', '410px');   //기타항목 있을경우 width
+					$(this).closest(targetSmgProgram).find('.etc').show();
+				}
+				else {
+					$(this).closest(targetSmgProgram).find('.etc').hide();
+					$(this).closest(targetSmgProgram).find('.sel').css('width', '820px');   //기타항목 없을경우 width
+				}
+				page.apply.nodeClass();
+			});
+
+			/**** 게임플레이 정보 ****/
+			var targetGamePlay = $('.gameplay');
+
+			targetGamePlay.find('.genre_game .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');
+				if (opt == 'etc'){
+					$(this).closest(targetGamePlay).find('.sel.one').css('width', '205px');   //기타항목 있을경우 width
+					$(this).closest(targetGamePlay).find('.etc').show();
+				}
+				else {
+					$(this).closest(targetGamePlay).find('.etc').hide();
+					$(this).closest(targetGamePlay).find('.sel.one').css('width', '410px');   //기타항목 있을경우 width
+				}
+				page.apply.nodeClass();
+			});
+
+			/**** 외국어 ****/
+			var targetForeign = $('.foreign');
+            targetForeign.find('.conversation').hide();
+            
+			// 외국어 구분 선택
+			targetForeign.find('.swap .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var optionClass = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-class');
+				 var optInit1 = targetForeign.find('.selectUI.exam select').attr("placeholder");
+				 var optInit2 = targetForeign.find('.selectUI.lang select').attr("placeholder");
+				// var optInit1 = targetForeign.find('.selectUI.exam option:eq(0)').text();
+				// var optInit2 = targetForeign.find('.selectUI.lang option:eq(0)').text();
+
+
+				targetForeign.find('.official, .conversation').hide();		
+				
+				targetForeign.find('.official.etc, .conversation.etc').addClass('hide');   //추가 2021.4.23
+				targetForeign.find('.sel.one, .sel.official, .sel.conversation').css('width', '410px');   //추가 2021.4.23
+
+				targetForeign.find('.selectUI.exam .custom_select_trigger').text(optInit1);
+				targetForeign.find('.selectUI.lang .custom_select_trigger').text(optInit2);
+
+				targetForeign.find('.'+optionClass).show();				
+
+				page.apply.nodeClass();
+			});
+
+			// 공인시험 > 시험종류 > 기타 클릭 시 직접입력 노출
+			$('.selectUI.exam .custom_option').on('click', function(){
+				var idx = $(this).index();
+				var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');
+				if (opt == 'etc'){
+					$('.official.etc').removeClass('hide');
+					$('.foreign .sel.one').css('width', '273px');       //기타항목 있을경우 width
+					$('.foreign .sel.official').css('width', '273px');   //기타항목 있을경우 width
+				}
+				else {
+					$('.foreign .sel.one').css('width', '410px');   //기타항목 없을경우 width
+					$('.foreign .sel.official').css('width', '410px');   //기타항목 없을경우 width
+					$('.official.etc').addClass('hide');
+				}
+
+				page.apply.nodeClass();
+			})
+			// 회화능력 > 외국어명 > 기타 클릭 시 직접입력 노출
+			$('.selectUI.lang .custom_option').on('click', function(){
+				var idx = $(this).index();
+				var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');
+				if (opt == 'etc'){
+					$('.conversation.etc').removeClass('hide');
+					$('.foreign .sel.one').css('width', '273px');       //기타항목 있을경우 width
+					$('.foreign .sel.conversation').css('width', '273px');   //기타항목 있을경우 width
+				}
+				else {
+					$('.foreign .sel.one').css('width', '410px');   //기타항목 없을경우 width
+					$('.foreign .sel.conversation').css('width', '410px');   //기타항목 없을경우 width
+					$('.conversation.etc').addClass('hide');
+				}
+
+				page.apply.nodeClass();
+			})
+
+
+			/**** 자격,수상 경력 ****/
+			var targetAward = $('.award');
+            targetAward.find('.contest').hide();
+            
+			// 자격,수상 구분 선택
+			targetAward.find('.swap .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var optionClass = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-class');
+
+				targetAward.find('.license, .contest').hide();
+				targetAward.find('.'+optionClass).show();
+
+				page.apply.nodeClass();
+			});
+
+			/**** 팀소개 ****/
+			var targetTeam = $('.tem_info');
+
+			targetTeam.find('.activity .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');
+				if (opt == 'etc'){
+					$(this).closest(targetTeam).find('.etc').show();
+					$(this).closest(targetTeam).find('.sel.activity').css('width', '205px');
+				}
+				else {
+					$(this).closest(targetTeam).find('.sel.activity').css('width', '410px');
+					$(this).closest(targetTeam).find('.etc').hide();					
+				}
+
+				page.apply.nodeClass();
+			});
+			
+
+			/**** 팀원소개 ****/
+			var targetMember = $('.team_member');
+
+			targetMember.find('.role .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var opt = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-opt');
+				if (opt == 'etc'){
+					$(this).closest(targetMember).find('.etc').show();
+					$(this).closest(targetMember).find('.sel.charge').css('width', '206px');
+				}
+				else {
+					$(this).closest(targetMember).find('.sel.charge').css('width', '615px');
+					$(this).closest(targetMember).find('.etc').hide();					
+				}
+
+				page.apply.nodeClass();
+			});
+		},
+
+		//대상/비대상  라디오버튼
+		applyformRadio : function(){									
+			var apply_radio = $("input[type=radio][data-radio-chk]");			
+			
+			apply_radio.on("click",function(e){
+				var apply_radio_name = $(this).attr("name");
+				var apply_radio_val = $(this).next("label").attr("data-" + apply_radio_name + "-val");  //
+				var apply_radio_layer = "radioview_" + apply_radio_name;			
+
+				switch(apply_radio_val){
+					case "1": 
+						$('div[data-radio-view=' + apply_radio_layer + ']').hide(50);
+						break;
+					case "2": 					
+						$('div[data-radio-view=' + apply_radio_layer + ']').show(50);					
+						break;	
+				}
+			});  		
+		},
+
+
+		// 모집공고목록페이지의 좌측 필터 스크립트
+		filter : {
+
+			// 스크롤 시 상단 고정
+			fixed : function(){
+				var winTop = $(window).scrollTop();
+				var startPos = $('#apply .apply_container').offset().top - 120;
+	
+				if(winTop > startPos){
+					$('#apply .apply_container').addClass('fixed');
+				}
+				else {
+					$('#apply .apply_container').removeClass('fixed');
+				}
+			},
+
+			// 브라우저 리사이즈 시 스크롤영역 리사이즈
+			resize : function(){
+
+				var scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+				var calc = 230;	// css 상의 height (100vh - 230px)
+				var h = calc - scrollBottom;
+
+				if (scrollBottom < $('#footer').height()){
+					$('#apply .filter .con').css('height','calc(100vh - '+ (calc + h) +'px)')
+				}
+			},
+		},
+		
+		// 모집공고 상세페이지 공고 레이어 스크롤 포지션
+		infoLayerFixed : function(){
+
+			var target = $('.fix_recruit_info');
+			var originTop = 0;
+			var fixedTop = 110;
+			var fixPosition = $('.setPosition').offset().top - fixedTop;
+			
+			$(window).on('scroll', function(){
+				var winTop = $(window).scrollTop();
+				var endPosition = $('.endPosition').offset().top - 350;
+				var rel = winTop - endPosition;
+
+				if (winTop <= fixPosition && rel < 0) {
+					target.removeClass('on');
+					target.css('top', originTop + 'px');
+				}
+				else if(winTop > fixPosition && rel < 0){
+					target.addClass('on');
+					target.css('top', fixedTop + 'px');
+				}
+				else if(winTop > fixPosition && rel >= 0){
+					target.css('top', fixedTop - rel + 'px');
+				}
+			})
+		}
+		
+	},
+
+	//FAQ
+	faq : {
+		onLoad : function(){
+
+			// form 포커스될 때 오렌지 라인 적용
+			var faq_inputBorder = $('textarea');
+            faq_inputBorder.each(function(){
+                $(this).on('focus', function(){
+                    $(this).closest('.wrap_border').addClass('line');
+                }).on('blur', function(){
+                    $(this).closest('.wrap_border').removeClass('line');
+                });
+            });
+		},
+
+		// selectbox 선택 시 해당 항목 노출
+		selectInteraction : function(){
+
+			var targetCounsel = $('.faq_counsel');
+            targetCounsel.find('.recruitask, .etc').hide();
+            
+			
+			targetCounsel.find('.selectUI .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var optionClass = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-class');
+
+				targetCounsel.find('.recruitask, .etc').hide();
+				targetCounsel.find('.'+optionClass).show();
+			});
+
+		},
+	},
+
+	life : {
+		onLoad : function(){
+			// 상단 인터랙션
+			$('.top_area').find('.title, .stit, .desc').addClass('active');
+
+			this.topVisual();
+			this.pleasure();
+			this.focusing();
+			this.lightUp();
+		},
+
+		setAnimation : function(){
+			/**********
+			* 1. 스크롤 시 인터랙션이 일어나야 하는 요소에 클래스 "ani" 추가.
+			* 2. css 에서 "active" 클래스로 모션 작업
+			**********/
+			 var winTop = $(window).scrollTop();
+                        
+			 $('.ani').each(function(){
+				 var pos = $(this).offset().top + 200;
+				 var scroll = pos - $(window).height();
+
+				 if (winTop > scroll){
+					 $(this).addClass('active');
+				 }
+			 });
+		},
+
+		topVisual : function(){
+			// 탑 영역 스와이퍼
+			var lifeTopSwiper = new Swiper(".lifeTopSwiper", {
+				spaceBetween: 20,
+				speed: 1500,
+				loop: true,
+				autoplay: {
+					delay: 5000,
+					disableOnInteraction: false,
+				},
+				allowTouchMove: false,
+				
+				// 슬라이드 시 투명도로 인해 깜박거림 현상 디버깅
+				on: {
+					slideChangeTransitionStart: function(){
+						$('.lifeTopSwiper .swiper-slide').addClass('trans');
+						$('.lifeTopSwiper .swiper-slide-active').removeClass('trans');
+					},
+					slideChangeTransitionEnd: function(){
+						$('.lifeTopSwiper .swiper-slide').removeClass('trans');
+					}
+				}
+			});
+		},
+
+		pleasure : function(){
+			// everyone's pleasure 스와이퍼
+			var pleasureSwiper = new Swiper('.pleasureSwiper', {
+				speed: 800,
+				slidesPerView: 1,
+				loop: true,
+				loopPreventsSlide: true,
+				loopAdditionalSlides: 1,
+				spaceBetween: 30,
+				simulateTouch: false,
+				autoplay: {
+					delay: 5000,
+					disableOnInteraction: false,
+				},
+				navigation: {
+					nextEl: '.wrap_slide_pleasure .swiper-button-next',
+					prevEl: '.wrap_slide_pleasure .swiper-button-prev',
+				},
+			});
+
+			$('.pleasureSwiper .wrap_txt > div').on('click', function(){
+				var slideIdx = $(this).index();
+				pleasureSwiper.slideToLoop(slideIdx);
+			});
+
+			// 슬라이드 후 텍스트 애니메이션 적용 & 탭메뉴 활성화
+			pleasureSwiper.on('slideChangeTransitionEnd', function(){
+				$('.swiper-slide').removeClass('active');
+				$('.swiper-slide-active').addClass('active');
+			});
+		},
+
+		focusing : function(){
+			// focusing on you 상세 레이어 팝업
+			$('.row_menu').each(function(){
+				var layerIdx = $(this).index() + 1;
+
+				$(this).on('click', function(){
+					$('.layer_focusing_you').fadeOut(300);
+					$('.layer' + layerIdx).fadeIn(300);
+				});
+				$('.layer_focusing_you .close').on('click', function(){
+					$(this).closest('.layer_focusing_you').fadeOut(300);
+				});
+			});
+			$('.layer_focusing_you .nav ul li').each(function(){
+				var navIdx = $(this).index() + 1;
+				$(this).on('click', function(){
+					$('.layer_focusing_you').fadeOut(300);
+					$('.layer' + navIdx).fadeIn(100);
+				});
+			});
+		},
+
+		lightUp : function(){
+			// light up the world 탭메뉴
+			$('.list_rectangle ul li').each(function(){
+				var detailIdx = $(this).index() + 1;
+
+				$(this).on('click', function(){
+					$('.light_content').fadeOut(300);
+					$('.detail' + detailIdx).fadeIn(300);
+
+					$('.list_rectangle ul li').removeClass('on');
+					$(this).addClass('on');
+				});
+				
+			});
+		},
+	},
+	//Student
+	student : {
+		onLoad : function(){
+			setTimeout(function(){
+				$('#fullpage .section').css('opacity','1');
+
+				//페이지 상단 비주얼 텍스트 애니메이션
+				$('#student .top_visual').addClass('ani_vi');
+			}, 500)
+
+			// 탭메뉴 레이어 show,hide
+			$('.wrap_tab .tab_type2').on('click', function(){
+				var tabIdx = $(this).index() + 1;
+
+				$('.tab_type2').removeClass('on');
+				$(this).addClass('on');
+
+				$('.conLayer').hide();
+				$('.conLayer.layer' + tabIdx).show();
+
+				return false;
+			});
+
+			// 멤버십 창작 둘러보기
+			var lookAroundSwiperCreat = new Swiper(".lookAroundSwiperCreat", {
+				slidesPerView: 2,
+				spaceBetween: -10,
+				speed: 1000,
+				centeredSlides: false,
+				allowTouchMove: false,
+				navigation: {
+					nextEl: ".wrap_lookAround_swiper.creat .swiper-button-next",
+					prevEl: ".wrap_lookAround_swiper.creat .swiper-button-prev",
+				},
+			});
+
+			// 멤버십 사회참여 둘러보기
+			var lookAroundSwiperSociety = new Swiper(".lookAroundSwiperSociety", {
+				slidesPerView: 2,
+				spaceBetween: -10,
+				speed: 1000,
+				centeredSlides: false,
+				allowTouchMove: false,
+				navigation: {
+					nextEl: ".wrap_lookAround_swiper.society .swiper-button-next",
+					prevEl: ".wrap_lookAround_swiper.society .swiper-button-prev",
+				},
+			});
+
+			// 서버개발캠프 걸어온길 스와이퍼
+			var historyCampSwiper = new Swiper(".historyCampSwiper", {
+				slidesPerView: 6,
+				spaceBetween: 30,
+				speed: 1000,
+				centeredSlides: false,
+				allowTouchMove: false,
+				navigation: {
+					nextEl: ".wrap_historyCamp .swiper-button-next",
+					prevEl: ".wrap_historyCamp .swiper-button-prev",
+				},
+			});
+
+			// 스토브 둘러보기
+			var lookAroundSwiperStove = new Swiper(".lookAroundSwiperStove", {
+				slidesPerView: 2,
+				spaceBetween: -10,
+				speed: 1000,
+				centeredSlides: false,
+				allowTouchMove: false,
+				navigation: {
+					nextEl: ".wrap_lookAround_swiper.stove .swiper-button-next",
+					prevEl: ".wrap_lookAround_swiper.stove .swiper-button-prev",
+				},
+			});
+		},
+
+		//student intro page fullloading
+		fullpage_Load : function(){
+			
+			$('#fullpage').fullpage({
+				navigation: true,
+                navigationPosition: 'right',
+				fixedElements: '.pageTop',
+				// anchors: ['Page1', 'Page2', 'Page3', 'Page4', 'Page5', 'Page6'],
+                // navigationTooltips: ['First page', 'Second page', 'Third and last page'],
+                
+                css3: true,
+
+				//마지막 scene pageTop class add/remove
+				afterLoad: function(origin, destination, direction){
+					var totSections = document.querySelectorAll('.fp-section').length;
+					var	numSections = $(this).closest('.section').index();
+
+					// 두번째 섹션부터 삼각형 오브젝트 숨김
+					if(numSections == 0){
+						$('#header_bg').removeClass('scrollOn');
+					}
+					else {
+						$('#header_bg').addClass('scrollOn');
+						$('#header_bg').find('.obj1').css('transition','1s ease-in-out');
+						$('#header_bg').find('.obj2, .obj3').css('transition','1s 0.2s ease-in-out');
+					}
+
+					// 흰바탕에서 인디케이터 회색으로 노출
+					if(numSections == 4 || numSections == 5){
+						$('#fp-nav, .fp-slidesNav').addClass('gray');
+					}
+					else {
+						$('#fp-nav, .fp-slidesNav').removeClass('gray');
+					}
+
+					// 2번째 섹션부터 탑버튼 노출
+					// if(numSections == 0){
+					// 	$('.pageTop').removeClass('active');
+					// }
+					// else {
+					// 	$('.pageTop').addClass('active');
+					// }
+
+					switch (numSections) {
+
+						case (totSections - 1): 
+							$('body').find('.pageTop').css({'bottom': '230px', 'transition':'0.3s'});
+
+							// 푸터까지 스크롤 시 5번째 인디케이터 활성화 유지
+							$('#fp-nav').find('li').eq(5).find('a').addClass('active');
+							$('#fp-nav').find('li').eq(4).find('a').addClass('active');
+							break; 
+						
+						case (4): 
+							$(document).find('#header').addClass('on');
+							//$(document).find('#header_bg').addClass('scrollOn');
+							$(document).find('#header_bg').fadeOut(600);
+							break; 
+
+						case (5): 
+							$(document).find('#header').addClass('on');
+							//$(document).find('#header_bg').addClass('scrollOn');
+							$(document).find('#header_bg').fadeOut(600);
+							break; 
+
+						default: 
+							$('body').find('.pageTop').css({'bottom': 0, 'transition':'0.3s'});	
+							$(document).find('#header').removeClass('on');
+							//$(document).find('#header_bg').removeClass('scrollOn');
+							$(document).find('#header_bg').fadeIn(400);
+							break; 
+					}
+
+					// 섹션 전환 시 애니메이션 작동
+					$('.section').removeClass('ani');
+					$('.section.active').addClass('ani');
+				},
+            });
+
+			$('#fullpage span[data-scroll=nextpage]').click(function(e){
+				e.preventDefault();
+				$.fn.fullpage.moveSectionDown();
+			});
+
+			// 숨겨진 6번째 인디케이터 클릭 시 5번째 슬라이드로 이동
+			$('#fp-nav ul').after().on('click', function(){
+				$.fn.fullpage.moveTo(5);
+			});
+		},
+
+		setAnimation : function(){
+			/**********
+			* 1. 스크롤 시 인터랙션이 일어나야 하는 요소에 클래스 "ani" 추가.
+			* 2. css 에서 "active" 클래스로 모션 작업
+			**********/
+			 var winTop = $(window).scrollTop();
+                        
+			 $('.ani').each(function(){
+				 var pos = $(this).offset().top + 200;
+				 var scroll = pos - $(window).height();
+
+				 if (winTop > scroll){
+					 $(this).addClass('active');
+				 }
+			 });
+			 $('.ani2').each(function(){
+				var pos = $(this).offset().top + 400;
+				var scroll = pos - $(window).height();
+
+				if (winTop > scroll){
+					$(this).addClass('active');
+				}
+			});
+		},
+	},
+
+
+	//mapage
+	mypage : {
+		onLoad : function(){
+			// form 포커스될 때 오렌지 라인 적용
+			var inputBorder = $('textarea');
+            inputBorder.each(function(){
+                $(this).on('focus', function(){
+                    $(this).closest('.wrap_border').addClass('line');
+                }).on('blur', function(){
+                    $(this).closest('.wrap_border').removeClass('line');
+                });
+            });
+			
+		},
+
+		// selectbox 선택 시 해당 항목 노출
+		selectInteraction : function(){
+			//회원탈퇴
+			var targetBreak = $('.break_join');
+            targetBreak.find('.etc').hide();            
+
+			targetBreak.find('.selectUI .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var optionClass = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-break');
+
+				targetBreak.find('.etc').hide();
+				targetBreak.find('.'+optionClass).show();
+			});
+
+			//1:1문의하기
+			var targetQuestion = $('.oneto_counsel');
+            targetQuestion.find('.recruitask, .etc').hide();
+            
+			
+			targetQuestion.find('.selectUI .custom_option').on('click', function() {
+				var idx = $(this).index();
+				var optionClass = $(this).parents('.custom_select_wrapper').find('select option').eq(idx).attr('data-class');
+
+				targetQuestion.find('.recruitask, .etc').hide();
+				targetQuestion.find('.'+optionClass).show();
+			});
+		},
+	},
+
+}

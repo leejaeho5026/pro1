@@ -1,0 +1,54 @@
+var PROPERTIES = {
+    'gallery-01': {
+        ko: `글로벌 엔터테인먼트 기업으로서<br> 더 나은 내일을 만들기 위한 스마일게이트의 오늘을 소개합니다.`,
+        en: `Discovering talent. Driving innovation.<br>We are building the future of global entertainment.`,
+        ch: `如今的Smilegate, 作为一家全球娱乐公司, 致力于打造更加美好的未来.`,
+    },
+    'our-business-01': {
+        ko: `플레이의 즐거움과 감동을<br>
+        동시에 선사할 수 있는 게임을<br>
+        만들고자 합니다.`,
+        en: `We create wildly popular video games that challenge and delight.`,
+        ch: `我们力求创造一个能同时为玩家带来欢乐与感动的游戏.`,
+    },
+    'our-business-02': {
+        ko: `강력한 IP로 다양한 문화 사업을 펼치며 AI등 첨단 기술에 <br>
+            투자하고 발전시켜 나갑니다.`,
+        en: `We develop intellectual property that entertains across movies, television, animation, social media, theme parks and more!`,
+        ch: `我们以IP为基础, <br>
+            开展具有全球竞争力的文化产业.`,
+    },
+    'our-business-03': {
+        ko: `기업의 숨겨진 가치를 <br>
+            발굴하고 투자하며 <br>
+            성장을 지원합니다.`,
+        en: `We identify brilliant startups, invest in their development, and scale them to greatness.`,
+        ch: `我们会发掘有潜力的中小企业进行投资, <br>
+            为其成长为跨国企业提供支援.`,
+    },
+    'our-business-04': {
+        ko: `미래지향적 서비스를 통해 모든 유저가 함께 즐길 수 있는 방법을 고민합니다.`,
+        en: `We think about ways to help all users enjoy together through future-oriented services.`,
+        ch: `我们通过未来化服务，积极探索能让所有玩家尽情享受的方案.`,
+    },
+    'our-business-05': {
+        ko: `희망을 확산하는 활동을 통해 사회적 책임을 실천하고 사회적 가치를 창출합니다.`,
+        en: `We fulfill social responsibilities and create social values through activities to spread hope.`,
+        ch: `我们通过举办传播希望的活动，实践社会责任，创造社会价值.`,
+    },
+    'our-business-06': {
+        ko: `다양한 플랫폼으로<br>
+        유저에겐 즐거운 소통을,<br>
+        게임 개발사에겐 편리한 개발과<br>
+        유용한 마케팅 환경을 제공합니다.`,
+        en: `Through various platforms, we provide users with pleasant communication
+        and game developers with 
+        convenient and advantageous environment
+        that is suited to development and marketing.`,
+        ch: `通过多样的平台<br>
+        为用户带来愉快的沟通体验<br>
+        也为游戏开发公司<br>
+        提供便利<br>
+        与有价值的营销环境。`,
+    }
+}

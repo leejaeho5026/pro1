@@ -1,0 +1,112 @@
+//ajax호출 스크립트
+var callAjax = {
+    get: function (url, data, successFunction, completeFunction, errorFunction) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            cache: false,
+            dataType: "json",
+            data: data ? data : null,
+            async: true,
+            contentType: "application/json; charset=utf-8",
+            success: function (result, textStatus, xhr) {                       
+                try {
+                    result = JSON.parse(unescapeHtml(JSON.stringify(result)).replace(/<(\/script|script)([^>]*)>/gi,""));                    
+                } catch (error) {
+                    console.log("unescapeHtml error", error);
+                }  
+
+                return successFunction(result, textStatus, xhr);
+            },
+            complete: completeFunction,
+            error:  function (xhr) {
+                if (xhr.responseJSON != undefined && xhr.responseJSON.code != undefined && xhr.responseJSON.code == 'C03') {
+                    location.href = "/auth/login";
+                } else {
+                    return errorFunction(xhr);
+                }
+            }
+
+        });
+    },
+    post: function (url, data, successFunction, completeFunction, errorFunction) {
+        $.post({
+            type: "POST",
+            url: url,
+            data: data ? JSON.stringify(data) : null,
+            async: true,
+            contentType: "application/json; charset=UTF-8",
+            success: function (result, textStatus, xhr) {                       
+                try {
+                    result = JSON.parse(unescapeHtml(JSON.stringify(result)).replace(/<(\/script|script)([^>]*)>/gi,""));                    
+                } catch (error) {
+                    console.log("unescapeHtml error", error);
+                }  
+
+                return successFunction(result, textStatus, xhr);
+            },
+            complete: completeFunction,
+            error: function (xhr) {
+                if (xhr.responseJSON.code == 'C03') {
+                    location.href = "/auth/login";
+                } else {
+                    return errorFunction(xhr);
+                }
+            }
+        });
+    },
+
+    put: function (url, data, successFunction, completeFunction, errorFunction) {
+        $.post({
+            type: "PUT",
+            url: url,
+            data: data ? JSON.stringify(data) : null,
+            async: true,
+            contentType: "application/json; charset=UTF-8",
+            success: function (result, textStatus, xhr) {                       
+                try {
+                    result = JSON.parse(unescapeHtml(JSON.stringify(result)).replace(/<(\/script|script)([^>]*)>/gi,""));                    
+                } catch (error) {
+                    console.log("unescapeHtml error", error);
+                }  
+
+                return successFunction(result, textStatus, xhr);
+            },
+            complete: completeFunction,
+            error:  function (xhr) {
+                if (xhr.responseJSON.code == 'C03') {
+                    location.href = "/auth/login";
+                } else {
+                    return errorFunction(xhr);
+                }
+            }
+        });
+    },
+    delete: function (url, data, successFunction, completeFunction, errorFunction) {
+        $.post({
+            type: "DELETE",
+            url: url,
+            data: data ? JSON.stringify(data) : null,
+            async: true,
+            contentType: "application/json; charset=UTF-8",
+            success: function (result, textStatus, xhr) {                       
+                try {
+                    result = JSON.parse(unescapeHtml(JSON.stringify(result)).replace(/<(\/script|script)([^>]*)>/gi,""));                    
+                } catch (error) {
+                    console.log("unescapeHtml error", error);
+                }  
+
+                return successFunction(result, textStatus, xhr);
+            },
+            complete: completeFunction,
+            error:  function (xhr) {
+                if (xhr.responseJSON.code == 'C03') {
+                    location.href = "/auth/login";
+                } else {
+                    return errorFunction(xhr);
+                }
+            }
+        });
+    }
+
+}

@@ -1,0 +1,112 @@
+var PROPERTIES = {
+    'about-01': {
+        ko: '스마일게이트는 크고 지속적인 시장 가치를 찾아냅니다.',
+        en: 'Smilegate discovers sustainable, mega market value.',
+        ch: 'Smilegate 会寻找大而可持续的市场价值。',
+    },
+    'vision-01': {
+        ko: `우리는 글로벌 엔터테인먼트 시장에서 Mega Value를 찾아내고 혁신하여 선점합니다.<br> 
+            즐거운 게임, 다양한 엔터테인먼트 콘텐츠, 유저 친화적 서비스로<br>
+            사랑받는 글로벌 IP 명가로서 성장해 나가겠습니다.`,
+        en: `We discover and develop mega values in the global entertainment market through world-class innovation.<br>
+        We strive to become the world's favorite global IP leader <br>
+        by providing immersive entertainment across games, media, and new user-friendly platform services.`,
+        ch: '在全球娱乐市场上寻找Mega Value，不断创新，抢占先机。 <br> 我们将以有趣的游戏、多样的娱乐内容和为新玩家提供友好的平台服务， <br>发展为能够受到玩家喜爱的全球IP名家。'
+    },
+    'mission-title-01':{
+        ko: 'MISSION',
+        en: 'MISSION',
+        ch : 'MISSION'
+    },
+    'mission-title-02':{
+        ko: 'Our good days become<br>a better tomorrow',
+        en: 'Our good days become<br>a better tomorrow',
+        ch : 'Our good days become<br>a better tomorrow'
+    },
+    'mission-title-03':{
+        ko: `함께하는 즐거움은 오랫동안 기억될 행복한 추억으로 남습니다.<br>
+        행복한 사람들이 함께 만들어갈 더 나은 내일을 위해 우리는 사람들의 하루 하루를 즐거움으로 채워갑니다.`,
+        en: `Joy becomes greater when we are together, and remains as happy memories for years.<br>
+        We enrich people’s lives with joy every day for our better tomorrow, where people with happiness build together.`,
+        ch : `在一起的快乐会成为美好的回忆被永久铭记，<br>
+        我们让快乐充满大家的每一天,和幸福的人们共同创造更加美好的明天!`
+    },
+    'mission-00': {
+        ko: '함께하는 즐거운 추억들이 모여 더 나은 내일을 만듭니다.',
+        en: 'Joyful moments form a better tomorrow.',
+        ch: '共同度过的快乐回忆汇集在一起，打造更美好的明天。',
+    },
+    'mission-01': {
+        ko: '우리의 무대는 언제나 <br>글로벌을 향합니다.',
+        en: 'We create for <br>a global audience.',
+        ch: '我们的舞台始终 <br>面向世界市场。',
+    },
+    'mission-02': {
+        ko: '우리는 사회적 가치를 <br>지속적으로 키워나갑니다.',
+        en: 'We continuously promote <br>positive social values.',
+        ch: '我们会持续培养 <br>社会价值。',
+    },
+    'mission-03': {
+        ko: '우리는 글로벌 IP 명가로 <br>더 높이 도약합니다.',
+        en: 'We constantly evolve <br>as a global IP leader.',
+        ch: '我们以成为全球IP名企为 <br>目标做出新的飞跃。',
+    },
+    'mission-04': {
+        ko: '우리는 멈추지 않고 <br>새로운 도전을 이어갑니다.',
+        en: 'We fearlessly take on <br> new challenges.',
+        ch: '我们会不懈地迎接 <br>新的挑战。',
+    },
+    'identity-01': {
+        ko: `프랙탈 삼각형을 모티브로 한 스마일게이트 CI는 사업의 다양성과 공동의 비전에 기반한 <br>
+            무한한 변화와 혁신의 가치를 담아내었습니다.`,
+        en: `Smilegate CI themed with a fractal triangle motif, reflects unlimited changes and <br>innovation based on the variety of businesses and the shared vision across the business areas.`,
+        ch: `Smilegate CI的分型三角形，涵盖了以事业多样性和共同展望为 <br>基础的无限变化和创新的价值。`,
+    },        
+    'identity-02': {
+        ko: '그룹사 로고 타입 CI',
+        en: 'CI Groups’ Logos',
+        ch: '集团公司商标类型 CI',
+    },
+    'identity-03': {
+        ko: '* 그룹사 및 계열사의 로고와 워드마크 사용시 제공 파일을 그대로 사용하여야 하며 임의로 변형하여 사용하는 것을 금합니다.',
+        en: 'You should use original logos or wordmarks of CI groups and affiliates as provided. It is prohibited to modify them.',
+        ch: '*使用集团公司及子公司的商标和水印时，应直接使用提供文件，禁止任意变形使用。',
+    },
+    'identity-04': {
+        ko: '계열사 CI',
+        en: 'CI Affiliates',
+        ch: '子公司 CI',
+    },
+    'banner-01': {
+        ko: '일하는 방식',
+        en: 'The way we work',
+        ch: '工作方式',
+    },
+    'banner-02': {
+        ko: '소통•공유•이해',
+        en: 'Communication, sharing, <br>and understanding',
+        ch: '沟通 • 共享 • 理解',
+    },
+    'banner-03': {
+        ko: `일의 목표와 의미를 명확히 이해하기 위해 소통과 공유를 활성화하며<br>
+        이를 통해 가시적인 성과를 창출합니다.`,
+        en: 'To ensure that everyone clearly understands the goal and meaning of work, <br>we promote communication and sharing,<br>thereby creating tangible outcomes.',
+        ch: '为了明确理解工作的目标及意义，<br>通过积极的沟通与共享创造可视性的成果。',
+    },
+    'banner-04': {
+        ko: '인재상',
+        en: 'THE RIGHT PEOPLE',
+        ch: '人才奖',
+    },
+    'banner-05': {
+        ko: '열정•사명감',
+        en: 'Passion and Commitment',
+        ch: '热情 • 使命感',
+    },
+    'banner-06': {
+        ko: `일에 대한 열정과 사명감을 가진 인재들이 모여<br>
+        가시적인 성과를 창출합니다.`,
+        en: 'Talented professionals with a passion for work<br>and a commitment come together to create tangible outcomes.',
+        ch: '汇聚对工作有热情和责任感的人才，创造可视性的成果。',
+    }
+}

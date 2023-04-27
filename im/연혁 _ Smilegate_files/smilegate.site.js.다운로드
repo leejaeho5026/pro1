@@ -1,0 +1,662 @@
+// G.A. Event Tag
+function eventTrack( action ) {
+    try {
+        if( action != '' ) {
+            var action = action+'_'+(lang||'kr');
+            location.href.indexOf('localhost') && console.log('G.A. Event Tag', action);
+            gtag('event', action);
+        }
+
+    } catch( evt ) {
+        console.log(evt);
+    }
+}
+
+function throttle( func, wait ) {
+  let timeout;
+  return function() {
+      if( timeout ) return;
+
+      const args = arguments;
+      const later = () => {
+          timeout = null;
+          func.apply(this, args);
+      };
+      timeout = setTimeout(later, wait);
+  };
+}
+
+var Detect = new function() {
+    this.isTouch = !!('ontouchstart' in window);
+    this.isMac = !!navigator.userAgent.match(/Mac/i);
+    this.isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (this.isTouch && this.isMac);
+    this.isAndroid = !!navigator.userAgent.match(/Android/i);
+    this.isFold1 = !!navigator.userAgent.match(/SM-F907/i);
+    this.isFold2 = !!navigator.userAgent.match(/SM-F916/i);
+    this.isFold = !!navigator.userAgent.match(/SM-F9/i);
+    this.isFlip = !!navigator.userAgent.match(/SM-F70/i);
+    this.isMobile = !!(this.isIOS || this.isAndroid);
+    this.MOBILE_MAX_WIDTH = 767;
+    this.TABLET_MAX_WIDTH = 959;
+    this.windowInnerWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    this.isDesktop = !this.isTouch && this.windowInnerWidth > this.TABLET_MAX_WIDTH;
+    this.isTablet = this.isTouch && this.windowInnerWidth > this.MOBILE_MAX_WIDTH;
+    this.isMobile = this.isTouch && !this.isTablet;
+}
+
+var Common = (function() {
+    function init() {
+        window.addEventListener('resize', () => {
+            requestAnimationFrame(resizeHandler);
+        }, false);
+        resizeHandler();
+        // If the user clicks anywhere outside the select box, then close all select boxes:
+        document.addEventListener('click', closeAllSelect);
+        commonSelect();
+    }
+
+    function resizeHandler() {
+        document.documentElement.style.setProperty('--app-width', document.documentElement.clientWidth+'px');
+        document.documentElement.style.setProperty('--app-height', document.documentElement.clientHeight+'px');
+    }
+
+    function commonSelect(notFirst, removeElem) {
+        var x, i, j, l, ll, selElmnt, a, b, c, d, linkTemp, replace;
+
+        if(notFirst && removeElem !== undefined){
+            removeElem.find('.select-selected').eq(0).remove();
+            removeElem.find('.select-items').eq(0).remove();
+        }
+
+        /* Look for any elements with the class "custom-select": */
+        x = document.getElementsByClassName("custom-select");
+        l = x.length;
+        
+        if(x.length === 0) return;
+
+        var isContainLink = x[0].classList.contains('link');
+
+        for (i = 0; i < l; i++) {
+            selElmnt = x[i].getElementsByTagName("select")[0];
+            ll = selElmnt.length;
+            /* For each element, create a new DIV that will act as the selected item: */
+            a = document.createElement("DIV");
+            a.setAttribute("class", "select-selected");
+            a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+
+            if(isContainLink) linkTemp = x[0].getElementsByTagName('li');
+
+            x[i].appendChild(a);
+            /* For each element, create a new DIV that will contain the option list: */
+            b = document.createElement("DIV");
+            b.setAttribute("class", "select-items select-hide");
+            for (j = 0; j < ll; j++) {
+                /* For each option in the original select element,
+                create a new DIV that will act as an option item: */
+                c = document.createElement("DIV");
+                if($(selElmnt.options[j]).hasClass('soldOut')) c.classList = 'soldOut';
+                c.innerHTML = selElmnt.options[j].innerHTML;
+
+                if(isContainLink && linkTemp[j].innerHTML && linkTemp[j].innerHTML.length > 0){
+                    replace = '&amp;';
+                    d = document.createElement('a');
+                    d.href = linkTemp[j].innerHTML.replaceAll(replace, '&');
+                    c.appendChild(d);
+                }
+
+                c.addEventListener("click", function(e) {
+                    /* When an item is clicked, update the original select box,
+                    and the selected item: */
+                    var y, i, k, s, h, sl, yl;
+                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                    sl = s.length;
+                    h = this.parentNode.previousSibling;
+                    for (i = 0; i < sl; i++) {
+                        if (s.options[i].innerHTML == this.innerHTML) {
+                            s.selectedIndex = i;
+                            h.innerHTML = this.innerHTML;
+                            y = this.parentNode.getElementsByClassName("same-as-selected");
+                            yl = y.length;
+                            for (k = 0; k < yl; k++) {
+                                y[k].removeAttribute("class");
+                            }
+                            this.setAttribute("class", "same-as-selected");
+                            break;
+                        }
+                    }
+                    h.click();
+                    $(s).change();
+                });
+                b.appendChild(c);
+            }
+            x[i].appendChild(b);
+            a.addEventListener("click", function(e) {
+                /* When the select box is clicked, close any other select boxes,
+                and open/close the current select box: */
+                e.stopPropagation();
+                closeAllSelect(this);
+                this.nextSibling.classList.toggle("select-hide");
+                this.classList.toggle("select-arrow-active");
+                $(this).closest('.custom-select').toggleClass('open');
+            });
+        }
+    }
+
+    function closeAllSelect(elmnt) {
+        // A function that will close all select boxes in the document, except the current select box:
+        var x, y, i, xl, yl, arrNo = [];
+        x = document.getElementsByClassName("select-items");
+        y = document.getElementsByClassName("select-selected");
+        xl = x.length;
+        yl = y.length;
+        for (i = 0; i < yl; i++) {
+            if (elmnt == y[i]) {
+                arrNo.push(i)
+            } else {
+                y[i].classList.remove("select-arrow-active");
+            }
+        }
+        for (i = 0; i < xl; i++) {
+            if (arrNo.indexOf(i)) {
+                var selectWrap = $(x[i]).closest('.custom-select');
+
+                x[i].classList.add("select-hide");
+                $(x[i]).closest('.custom-select').removeClass('open');
+
+                if($(x[i]).find('.same-as-selected').length === 0) selectWrap.addClass('first');
+                else selectWrap.removeClass('first');
+            }
+        }
+    }
+
+    function fixedFooter(lc){      
+        $("footer").addClass("fixed_footer")  
+
+        var $footer = document.querySelector('footer');
+        var $footerInner = document.querySelector('.footer_inner');
+        var $locoscrollInner = document.querySelector('.locomotive_inner');
+        var $topBtn = document.querySelector('#top_button');
+
+        if(lc){
+          $(".footer_familysite ul").on("mouseenter",function(){
+            lc.stop()
+          })
+          $(".footer_familysite ul").on("mouseleave",function(){
+            lc.start()
+          })
+        }
+
+        lc.on("scroll",function(args){
+            if ($footerInner && $locoscrollInner) {
+                const footerHeight = $footerInner.clientHeight;
+                if (document.documentElement.classList.contains('has-scroll-smooth')) {
+                    $locoscrollInner.style.paddingBottom = (footerHeight  - 2 )+ 'px';
+                    const windowHeight = window.innerHeight;
+                    const contentHeight = $locoscrollInner.clientHeight;
+                    const revealHeight = Math.max((args.scroll.y - (contentHeight - footerHeight - windowHeight) ), 0);
+                    gsap.set($footer, {height: revealHeight, duration:.1  });
+
+                    if($topBtn && revealHeight > 0){
+                        $topBtn.classList.add("active")
+                        $topBtn.style.bottom = 32 + revealHeight +"px"
+                    }else if($topBtn && revealHeight <= 0){
+                        $topBtn.classList.remove("active")
+                    }
+
+                    if(revealHeight <= 0 && $(".footer_familysite").length > 0){
+                      $(".footer_familysite").removeClass("active")
+                      $(".footer_familysite ul").slideUp()
+                    }
+                } else {
+                    document.body.style.paddingBottom = footerHeight + 'px';
+                }
+            }
+        })
+    }
+
+    function topBtnScroll($LocomotiveScroll){
+        var $topBtn = $("#top_button"),
+        $time = 1000
+
+        $topBtn.click(function(){
+            $LocomotiveScroll.stop()
+            $LocomotiveScroll.scrollTo(".locomotive_inner",{
+                duration : $time,
+                callback: function(){
+                    setTimeout(function(){
+                        $LocomotiveScroll.start()    
+                    },$time + 2000)                    
+                }
+            })
+        })
+    }
+
+    return {
+        init : init,
+        fixedFooter:fixedFooter,
+        topBtnScroll:topBtnScroll
+    }
+})();
+
+var Header = (function() {
+    window.__gnbAuto = false
+    window.__gnbBreak = false
+    window.__gnbHover = true
+
+    var headerTimeOut;
+    var $LocomotiveScroll;
+    var html, body, header, isDark;
+
+    function getDiff( a, b ) {
+        return { x:a.x-b.x, y:a.y-b.y };
+    }
+
+    function init() {
+        html = document.querySelector('html');
+        body = document.querySelector('body');
+        header = document.querySelector('header');
+
+        $("header").addClass("event-block")
+
+        setTimeout(function(){
+          $("header").removeClass("event-block")
+        },2000)
+
+        body.addEventListener('mousemove', throttle( _ => {
+
+          gsap.killTweensOf(gnbShow);
+
+          if(window.__gnbAuto){
+            gsap.delayedCall(4, gnbShow);
+          }
+        }, 100 ));
+
+        headerFunc()
+        quickMenu()
+    }
+
+    function detectLSDirection($LocomotiveScroll) {
+      // Fixed Nav
+      let prev = 0;
+      ScrollTrigger.create({
+        trigger: body,
+        scroller: $LocomotiveScroll,
+        start: 'top top',
+        scrub: true,
+        ease: 'none',
+        end: $('.locomotive').height(),
+        onUpdate: throttle( self => {
+          if(self.progress == 0) {
+            gsap.killTweensOf(gnbShow);
+            return;
+          }
+          
+          var percent = Number.parseFloat(self.progress).toFixed(4);
+          if( percent > prev ) gnbHide();
+          else gnbShow();
+          prev = percent;
+        }, 500 ),
+        onLeaveBack: () => {            
+          header.classList.remove('up');
+          header.classList.remove('down');
+
+          if(location.pathname.includes("/business") || $("[data-header-dark]").length > 0){
+            $("header").addClass("dark");
+          }
+        },
+      });
+    }
+
+    function gnbShow() {
+        if( !header.classList.contains('up') ) {
+            header.setAttribute('class','up');
+        }
+    }
+
+    function gnbHide() {
+        if( !header.classList.contains('down') ) {
+            header.setAttribute('class','down');
+        }
+
+        gsap.killTweensOf(gnbShow);
+        if(window.__gnbAuto){
+          gsap.delayedCall(4, gnbShow);
+        }
+    }
+
+    function headerFunc(){
+      var $time = 1000
+      var isFading = false
+
+      function fadeIn(){
+        if(!isFading){
+          isFading = true
+          $(".header_dim").stop().fadeIn(500,function(){
+            isFading = false
+          })
+        }
+      }
+
+      function fadeOut(){
+        if(!isFading){
+          isFading = true
+          $(".header_dim").stop().fadeOut(500,function(){
+            isFading = false
+          })
+        }
+      }
+
+      $("body").off("mouseleave").on("mouseleave",function(){
+        $(".depth2_bg").removeClass("active")
+
+          isFading = false
+        $(".header_dim").stop().fadeOut(500)
+
+        clearTimeout(headerTimeOut)
+        headerTimeOut = setTimeout(function(){$("header").removeClass("hover")},$time)
+      })
+
+      $("header nav").off("mouseover").on("mouseover",function(){
+        if(!window.__gnbHover) return
+
+        clearTimeout(headerTimeOut)
+
+        
+        $("header").addClass("hover")
+        $(".depth2_bg").addClass("active")
+
+          fadeIn()
+
+        $('body').on('scroll touchmove mousewheel', function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          return false;
+        });
+      })
+
+      $("header").off("mouseleave").on("mouseleave",function(){
+        
+        $(".depth2_bg").removeClass("active")
+
+          isFading = false
+          $(".header_dim").stop().fadeOut(500)
+
+        clearTimeout(headerTimeOut)
+        headerTimeOut = setTimeout(function(){$("header").removeClass("hover")},$time)
+
+        $('body').off('scroll touchmove mousewheel');
+      })
+
+      $("header .depth2_bg").off("mouseover").on("mouseover",function(){
+        if(!window.__gnbHover) return
+          fadeIn()
+
+        clearTimeout(headerTimeOut)
+        $(".depth2_bg").addClass("active")
+      })
+
+      $("header .lang").mouseleave(function(){
+        $(".lang_box").slideUp("active")
+      })
+      
+      $("header .header_depth2").mouseover(function(){
+        var depth1 = $(this).data("gnb")
+        $("header nav .header_depth1 li").eq(depth1).addClass("hover")
+      }).mouseleave(function(){
+        var depth1 = $(this).data("gnb")
+        $("header nav .header_depth1 li").eq(depth1).removeClass("hover")
+      })
+
+      $(".lang button").click(function(){
+        $(".lang_box").slideToggle("active")
+      })
+
+      // 현재 페이지에서, 다국어 해당 페이지로 이동
+      $('header').find('.lang_box').on('click', 'a', function( evt ) {
+        evt.preventDefault();
+        if( $(this).closest('li').hasClass('active') ) return;
+
+        var changeUri = $(this).attr('href').replace(/\/\s*$/,'');
+        console.log(location.href, location.href.slice(-1), langUri, changeUri);
+        
+        //index.페이지 "/"로 끝나는 url시 다국어 처리 
+        if(location.href.slice(-1) === "/"){
+          location.href = location.href.split(location.href.slice(-1), 0) + changeUri;
+        }
+        //기존 해당 페이지내 다국어 처리 
+        else{
+          location.href = location.href.replace(langUri,changeUri);
+        }
+      });
+
+
+      if($("[data-header-dark]").length > 0){
+        $("header").addClass("dark")
+      }
+      if(location.pathname.includes("/company")){
+        $(".depth1.company").addClass("active")
+      }
+      if(location.pathname.includes("/business")){
+        $("header").addClass("dark")
+        $(".depth1.business").addClass("active")
+      }
+      if(location.pathname.includes("/game")){
+        $(".depth1.game").addClass("active")
+      }
+      if(location.pathname.includes("/media")){
+        $(".depth1.media").addClass("active")
+      }
+      if(location.pathname.includes("/career")){
+        $(".depth1.career").addClass("active")
+      }
+    }
+
+    function quickMenu(){
+      var lottieBtn = $('.quick_menu_lottie');
+      var lottieBtnUp = $('.quick_menu_lottie.up');
+      var langBtn = $('.lang');
+
+      $(".quick_btn").on("click",function(){
+        $(".quick,.quick_container,.quick_dim").addClass("active")
+        $LocomotiveScroll = Scroll.getLocoScroll();
+        $LocomotiveScroll.stop()
+      })
+
+      $(".quick_dim, .quick_close").on("click",function(){
+        $(".quick_container,.quick_dim").removeClass("active")
+
+        $(".quick .quick_dim").on("transitionend",function(){
+          $(".quick").removeClass("active")          
+          $LocomotiveScroll = Scroll.getLocoScroll();
+          $LocomotiveScroll.start()
+
+          $(".quick .quick_dim").off("transitionend")
+        })
+      })
+
+      isDark = $("header").hasClass('dark');
+      if(location.pathname.includes("/business/overview")){
+        isDark = false
+      }
+      var isDarkColor = isDark ? 'white' : 'black';
+      var quickLottie = lottie.loadAnimation({
+        container: lottieBtn[0],
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        path: '/assets/img/common/quick/lottie/'+isDarkColor+'/data.json'
+      });
+      var quickLottieUp = lottie.loadAnimation({
+        container: lottieBtnUp[0],
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        path: '/assets/img/common/quick/lottie/white/data.json'
+      });
+
+      lottieBtn.on("mouseover",function(){
+        quickLottie.setDirection(1);
+        quickLottie.setSpeed(1.7);
+        quickLottie.play();
+        quickLottieUp.setDirection(1);
+        quickLottieUp.setSpeed(1.7);
+        quickLottieUp.play();
+      });
+
+      lottieBtn.on("mouseleave",function(){
+        quickLottie.setDirection(-1);
+        quickLottie.setSpeed(1.7);
+        quickLottie.play();
+        quickLottieUp.setDirection(-1);
+        quickLottieUp.setSpeed(1.7);
+        quickLottieUp.play();
+      });
+    }
+
+    return {
+        init: init,
+        detectLSDirection: detectLSDirection,
+        gnbShow: gnbShow,
+        gnbHide: gnbHide
+    }
+})();
+
+var Scroll = (function() {
+    var $Locomotivescroll;
+
+    function init() {
+      
+    }
+
+    function initLocoScroll(_opts){
+        const defaults = {
+            el: document.querySelector('[data-scroll-container]'),
+            lerp: 0.05,
+            multiplier: 0.5,
+            smooth: true,
+            scrollFromAnywhere: true,
+        }
+        const options = Object.assign(defaults, _opts);
+        $Locomotivescroll = new LocomotiveScroll(options);
+
+        $Locomotivescroll.on("scroll",function(){
+          if($Locomotivescroll.scroll.instance.scroll.y > 100 && !window.__gnbBreak){
+            window.__gnbAuto = true
+          }else{
+            window.__gnbAuto = false
+          }
+        })
+        
+
+        gsap.registerPlugin(ScrollTrigger);
+        
+        /*scrolltrigger X locomotive */
+        ScrollTrigger.scrollerProxy(".locomotive", {
+            scrollTop(value) {
+                return arguments.length ? $Locomotivescroll.scrollTo(value, 0, 0) : $Locomotivescroll.scroll.instance.scroll.y;
+            },
+            getBoundingClientRect() {
+                return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+            },
+            pinType: document.querySelector(".locomotive").style.transform ? "transform" : "fixed"
+        });
+
+        ScrollTrigger.addEventListener("refresh", () => $Locomotivescroll.update());
+        ScrollTrigger.refresh();
+
+        return $Locomotivescroll;
+    }
+    
+    function getLocoScroll() {
+        return $Locomotivescroll;
+    }
+
+
+    return {
+        init : init,
+        initLocoScroll:initLocoScroll,
+        getLocoScroll:getLocoScroll
+    }
+})();
+
+var Language = (function(exports) {
+    function translate( option ) {
+        var that = this;
+        var opts = $.extend( {css:'trn',lang:'en'}, option||{} );
+        if( opts.css.lastIndexOf('.',0) !== 0 ) opts.css = '.'+opts.css;
+
+        this.lang = function( l ) {
+          if( l ) {
+            opts.lang = l;
+            this.translate(opts);
+          }
+
+          return opts.lang;
+        };
+
+        this.get = function(index) {
+          var res = index;
+          try { res = opts.property[index][opts.lang];
+          } catch( err ) { return index; }
+          
+          if( res ) return res;
+          else return index;
+        };
+
+        this.g = this.get;
+        this.find(opts.css).each( function(i) {
+          var $this = $(this);
+          var trn_key = $this.attr('data-trn-key');
+          if( !trn_key ) {
+            trn_key = $this.html();
+            $this.attr('data-trn-key',trn_key);
+          }
+
+          $this.html( that.get(trn_key) );
+        });
+
+        return this;
+    }
+
+    function init() {
+        $.fn.translate = translate;
+
+        // 국문 /ko 영문 /en 중문 /ch
+        const language = lang || 'ko';
+        const $body = document.querySelector('body');
+        $body.classList.add(language);
+
+        const $header = document.querySelector('header');
+        $header.style.visibility = 'visible';
+
+        document.querySelectorAll('*').forEach( function( el, i ) {
+            if( !!el.getAttribute('data-trn-key') ) el.classList.add('trn');
+        });
+
+        var property = Object.assign(window.COMMON_PROPERTY, window.PROPERTIES);
+        $('body').translate( {lang:lang, property:property} );
+        $header.classList.add('translated');
+    }
+
+    exports.init = init;
+    return exports;
+})({});
+
+// var reDirection = (function(){
+//   function init(){
+//     if(location.href === "http://sgw.local.com/"){
+//     location.replace('http://sgw.local.com/ko/');
+//     }
+//   }
+//   return {
+//     init: init
+//   }
+// })({})
+
+document.addEventListener('DOMContentLoaded', _ => {
+    Common.init();
+    Header.init();
+    Scroll.init();
+    Language.init();
+    // reDirection.init();
+});

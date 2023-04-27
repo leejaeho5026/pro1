@@ -1,0 +1,45 @@
+window.addEventListener('DOMContentLoaded', async (event) => {
+  let fireAnim = document.getElementById("fire-anim")
+  fireAnim.oncanplaythrough = function() {
+      fireAnim.play()
+      fireAnim.pause()
+      fireAnim.play()
+  }
+
+  let waveAnim = document.getElementById("Waves")
+  waveAnim.oncanplaythrough = function() {
+      waveAnim.play()
+      waveAnim.pause()
+      waveAnim.play()
+  }
+
+  let embersAnim = document.getElementById("Embers")
+  embersAnim.oncanplaythrough = function() {
+      embersAnim.play()
+      embersAnim.pause()
+      embersAnim.play()
+  }
+
+  let gunSmokeAnim = document.getElementById("Smoke")
+  gunSmokeAnim.oncanplaythrough = function() {
+      gunSmokeAnim.play()
+      gunSmokeAnim.pause()
+      gunSmokeAnim.play()
+  }
+
+  const md = new MobileDetect(window.navigator.userAgent)
+  const isMobile = md.mobile()
+
+
+
+  window.__WEBGL_ASSET_LOADED = false;
+
+  
+  _WEBGL.createContext('.webgl-container', 'webglScene', true, isMobile)
+
+  _WEBGL.loadAssets('crossfire', () => {})
+  _WEBGL.loadAssets('lostArk', () => { // call only one time!!
+    window.__WEBGL_ASSET_LOADED = true
+    _WEBGL.toggleMouseInteraction(true)
+  })
+})

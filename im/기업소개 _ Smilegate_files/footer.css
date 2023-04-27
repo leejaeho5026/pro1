@@ -1,0 +1,63 @@
+footer { width: 100%; margin-top: 200px; background-color: #f5f5f5; }
+
+footer.fixed_footer { position: fixed; bottom: 0; left: 0; right: 0; width: 100%; z-index: 1005; overflow: hidden; margin-top: 0px; }
+
+footer.fixed_footer .footer_inner { position: absolute; width: 100%; bottom: 0; left: 0; right: 0; }
+
+footer .footer_inner { padding: 56px 80px; box-sizing: border-box; }
+
+footer .footer_top { border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-bottom: 72px; margin-bottom: 32px; }
+
+footer .footer_top .footer_quick > a img { display: block; margin-bottom: 40px; }
+
+footer .footer_top .footer_quick ul li { display: inline-block; color: #111; }
+
+footer .footer_top .footer_quick ul li:not(:last-of-type) { margin-right: 40px; }
+
+footer .footer_top .footer_quick ul li a { font-family: "SDGothicNeoa-eMd"; font-size: 16px; font-weight: normal; font-stretch: normal; font-style: normal; line-height: 1; letter-spacing: normal; text-align: left; color: #111; }
+
+footer .footer_top .footer_quick ul li a.pri { font-family: "SDGothicNeoa-hExBd"; }
+
+footer .footer_top .footer_familysite { position: relative; width: 118px; }
+
+footer .footer_top .footer_familysite.active button .ico { -webkit-transform: rotate(180deg) translateY(2px); transform: rotate(180deg) translateY(2px); }
+
+footer .footer_top .footer_familysite button { font-family: "CircularXXWeb-Medium"; font-size: 16px; font-weight: 500; font-stretch: normal; font-style: normal; line-height: 1; letter-spacing: normal; text-align: center; color: #111; }
+
+footer .footer_top .footer_familysite button { padding: 0 2px; padding-bottom: 8px; border-bottom: 2px solid #111; }
+
+footer .footer_top .footer_familysite button .ico { transition: transform 0.2s; transform-origin: center; }
+
+footer .footer_top .footer_familysite button img { width: 8px; display: inline-block; margin-left: 8px; transform: translateY(-2px); }
+
+footer .footer_top .footer_familysite ul { display: none; position: absolute; top: calc(100% - 2px); left: 0; width: 100%; max-height: 138px; overflow-x: hidden; overflow-y: scroll; background-color: #fff; border: 2px solid #111; box-sizing: border-box; }
+
+footer .footer_top .footer_familysite ul::-webkit-scrollbar { width: 9px; }
+
+footer .footer_top .footer_familysite ul::-webkit-scrollbar-thumb { background-color: #111; background-clip: padding-box; border-right: 6px solid transparent; border-top: 12px solid transparent; border-bottom: 12px solid transparent; }
+
+footer .footer_top .footer_familysite ul::-webkit-scrollbar-track { background-color: transparent; }
+
+footer .footer_top .footer_familysite ul li { padding: 6px 10px; box-sizing: border-box; min-height: 26px; height: min-content; }
+
+footer .footer_top .footer_familysite ul li:first-of-type { padding-top: 8px; }
+
+footer .footer_top .footer_familysite ul li:last-of-type { padding-bottom: 8px; }
+
+footer .footer_top .footer_familysite ul li:hover { background-color: #f5f5f5; }
+
+footer .footer_top .footer_familysite ul li a { display: block; height: 100%; font-family: "CircularXXWeb-Medium"; font-size: 14px; font-weight: normal; font-stretch: normal; font-style: normal; line-height: 1; letter-spacing: normal; text-align: left; color: #111; }
+
+footer .footer_bottom { color: #666; }
+
+footer .footer_bottom .contact, footer .footer_bottom .copy { font-family: "SDGothicNeoa-eMd"; font-size: 14px; font-weight: normal; font-stretch: normal; font-style: normal; line-height: 1; letter-spacing: normal; text-align: left; color: #666; }
+
+footer .footer_bottom .right { margin-left: auto; display: flex; align-items: center; }
+
+footer .footer_bottom .__awardlogo { margin-left: 40px; width: 110px; }
+
+footer .footer_bottom .__awardlogo img { display: block; width: 100%; }
+
+footer .footer_top, footer .footer_bottom { display: flex; align-items: flex-start; justify-content: flex-start; }
+
+/*# sourceMappingURL=footer.css.map */

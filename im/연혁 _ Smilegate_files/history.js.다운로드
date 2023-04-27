@@ -1,0 +1,320 @@
+var History = (function(){
+    const $nav = $('.history_nav');
+    const $imgLi = $('.list_img');
+    const $cursor = $('.custom_cursor');
+    const $link = $('.history_link');
+
+    let $Locomotivescroll;
+    let scrollTop = 0;
+    let windowHeight = $(window).innerHeight();
+    let initCursor = false;
+
+    function init() {
+        window.addEventListener('resize', resizeHandler);
+        resizeHandler();
+        initScroll();
+        initMotion();
+        navigationHandler();
+        // title image clip
+        $imgLi.on('mouseenter', onEnterList);
+        $imgLi.on('mouseenter', onHoverList);
+        $imgLi.on('mousemove', onHoverList);
+        $imgLi.on('mouseleave', offHoverList);
+        $('.history_list li').each(function (i) {
+            if (i % 2 === 0) $(this).addClass('odd');
+            else $(this).addClass('even');
+        })
+
+        // $link.on('mouseenter', onEnterLink);
+        // $link.on('mousemove', onHoverLink);
+        // $link.on('mouseleave', offEnterLink);
+        $('.history_list li').each( function( i, el ) {
+            const a = $(el).find('>a').hasClass('history_link');
+            const b = $(el).find('>div').hasClass('hover_img');
+            const $outLink = a && b ? $(el).css({cursor:'none'}) : $(el).find('>a.history_link');
+            $outLink.on('mouseenter', _ => $cursor.addClass('is-active'));
+            $outLink.on('mousemove', evt => $cursor.css({left:evt.pageX, top:evt.pageY}));
+            $outLink.on('mouseleave', _ => $cursor.removeClass('is-active'));
+            // $('body').on('mousemove', evt => $cursor.css({left:evt.pageX, top:evt.pageY}));
+        });
+    }
+
+    // [NOTE] resize event
+    function resizeHandler() {
+        windowHeight = $(window).innerHeight();
+        windowWidth = $(window).innerWidth();
+        ScrollTrigger.update();
+        // navigationHandler();
+
+        $('.history_list .hover_img').each(function() {
+            const thisW = $(this).find('img').width();
+            const thisH = $(this).find('img').height();
+            $(this).css('width', `${thisW}px`);
+            $(this).css('height', `${thisH}px`);
+        })
+    }
+
+    // [NOTE] init locomotive scroll
+    function initScroll() {
+        $Locomotivescroll = Scroll.initLocoScroll();
+        Header.detectLSDirection(".locomotive");
+        Common.fixedFooter($Locomotivescroll);
+        Common.topBtnScroll($Locomotivescroll);
+        
+        ScrollTrigger.config({ limitCallbacks: true  });
+
+        $Locomotivescroll.scrollTo(0, 0, { duration: 0 });
+        $Locomotivescroll.on('scroll', function(e) {
+            ScrollTrigger.update();
+            scrollTop = $Locomotivescroll.scroll.instance.scroll.y;
+            
+            scrollHandler(e);
+        });
+
+        ScrollTrigger.refresh();
+    }
+
+    function scrollHandler(e) {
+        if ($('.section_history').offset().top > 0) {
+            gsap.to($nav, 1, { autoAlpha: 0 });
+        } else {
+            gsap.to($nav, 1, { autoAlpha: 1 });
+        }
+    }
+
+    // [NOTE] init animations
+    function initMotion() {
+        kvMotionIntro();
+        initMotionHistoryGroup();
+        initMotionHistoryYear();
+        initMotionHistoryText();
+    }
+
+    function kvMotionIntro() {
+        $Locomotivescroll.stop();
+        // $Locomotivescroll.destroy();
+        
+        gsap.to('.kv_bg', 2.85, {scale: 1, delay: 0});
+
+        // 흰색 키비 커버
+        gsap.to('.main_wrap', {delay: 1, opacity: 1, autoAlpha: 1, onComplete: function() {
+            $('.section_kv').addClass('landed');
+            gsap.fromTo('.main_title', {x:'-20%'}, {x:'0%', ease:Power3.easeOut, duration:2 });
+            gsap.fromTo('.main_inner .font__caption_game', {x:'-10%', opacity: 0}, {x:'0%', opacity: 1, ease:Power3.easeOut, duration:2, delay: 0.3 });
+            gsap.fromTo('.main_inner .font__body_1', {x:'-10%', opacity: 0}, {x:'0%', opacity: 1, ease:Power3.easeOut, duration:2, delay: 0.5});
+            gsap.fromTo('.scroll', {opacity: 0}, {opacity: 1, duration:2, delay:.4 });
+    
+        }});
+        const tlKvIntro = gsap.timeline({ onComplete: kvMotionOutro });
+        tlKvIntro.fromTo('.section_kv .main_wrap',{ clipPath: 'polygon(0 0, 45% 0, 10% 100%, 0% 100%)'}, { clipPath: 'polygon(0 0, 100% 0, 88% 100%, 0% 100%)', duration: 1.7}, 1)
+        tlKvIntro.fromTo('.section_kv .main_wrap',{ xPercent: -100 }, { xPercent: 0, duration: 1 }, 1);
+
+        // 헤더
+        $('header').addClass('dark');
+    }
+
+    function kvMotionOutro() {
+        // $Locomotivescroll.init();
+        $Locomotivescroll.start();
+
+        const tlKvEnd = gsap.timeline({
+            scrollTrigger: {
+                scroller: '.locomotive',
+                trigger: '.section_kv .main_wrap',
+                start: 'top top',
+                end: `${windowHeight} ${windowHeight*0.9}`,
+                scrub: 1,
+                //markers: true
+                onEnter: function(e) {
+                    $Locomotivescroll.update();
+                },
+            }
+        })
+                tlKvEnd.fromTo('.section_kv .main_wrap',{ clipPath: 'polygon(0 0, 100% 0, 88% 100%, 0% 100%)'}, { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', duration: 1}, 0)
+    }
+    
+    // [NOTE] history year animation
+	function initMotionHistoryYear() {
+        $('.history_content').each(function (i) {
+            const historyH = $('.history_year', this).innerHeight() - $('.history_year span', this).innerWidth();
+			gsap.timeline( {scrollTrigger: {
+                    scroller: '.locomotive',
+                    trigger: this,
+                    start: 'top 20%',
+                    end: `${$('.history_year', this).innerHeight() + $('.history_year span', this).innerWidth()} 30%`,
+                    scrub: true,
+                    // markers: true,
+                }
+            })
+				.fromTo($('.history_year span', this), { y: 0 }, { y: `${historyH}px` })
+
+            if (i % 4 === 0) $(this).addClass('color1');
+            if (i % 4 === 1) $(this).addClass('color2');
+            if (i % 4 === 2) $(this).addClass('color3');
+            if (i % 4 === 3) $(this).addClass('color4');
+		});
+    }
+    
+    // [NOTE] history text animation
+	function initMotionHistoryText() {
+        $('.history_list li').each(function () {
+			gsap.timeline( {scrollTrigger: {
+                    scroller: '.locomotive',
+                    trigger: this,
+                    start: 'top bottom',
+                    end: 'bottom 80%',
+                    scrub: 1,
+                    // markers: true,
+                }
+            })
+				// .to(this, {duration: .15})
+				// .fromTo(this, { autoAlpha: 0, y: '5vh' }, { autoAlpha: 1, y: '0vh' })
+		});
+	}
+    
+    // [NOTE] history group - nav active
+	function initMotionHistoryGroup() {
+        $('.history_group').each(function (i) {
+			gsap.timeline( {scrollTrigger: {
+                    scroller: '.locomotive',
+                    trigger: this,
+                    start: 'top center',
+                    end: 'bottom center',
+                    scrub: 1,
+                    onEnter: function(e) {
+                        $('.history_nav li').removeClass('active');
+                        $('.history_nav li').eq(i).addClass('active');
+                    },
+                    onEnterBack: function(e) {
+                        $('.history_nav li').removeClass('active');
+                        $('.history_nav li').eq(i).addClass('active');
+                    },
+                    // markers: true,
+                }
+            })
+		});
+    }
+    
+    function onEnterList() {
+        const $thumb = $(this).find('.hover_img');
+        gsap.fromTo($thumb, { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.25 });
+        gsap.fromTo($thumb.find('img'), { scale: 1.5 }, { scale: 1 });
+    }
+    
+    let isHoverout = false;
+    
+    // [NOTE] clip title
+    function onHoverList(e) {
+        const $thumb = $(this).find('.hover_img');
+        const $whiteTitle = $(this).find('.history_title_white');
+        const posX = e.pageX - $thumb.offset().left - $thumb.width() / 2;
+        const posY = e.pageY - $thumb.offset().top - $thumb.height() / 2;
+        const clip = getTitleClip($whiteTitle, $thumb);
+
+        gsap.to($thumb, { marginLeft: posX / 2, marginTop: posY / 2, autoAlpha: 1 });
+
+		// title clip css
+        gsap.to($whiteTitle, { autoAlpha: 1 });
+        $whiteTitle.css('clip', `rect(${clip.t}px, ${clip.r}px, ${clip.b}px, ${clip.l}px)`);
+	}
+
+	// [NOTE] 마우스에 따라 clip 수치 가져옴
+	function getTitleClip ($txt, $pic) {
+		if (!$pic) {
+			return {
+				l: 0,
+				r: 0,
+				t: 0,
+				b: 0
+			}
+		} else {
+			const txtT = $txt.offset().top;
+			const txtL = $txt.offset().left;
+			const txtB = txtT + $txt.height();
+			const txtR = txtL + $txt.width();
+			const picT = $pic.offset().top;
+			const picL = $pic.offset().left;
+			const picR = picL + $pic.width();
+			const picB = picT + $pic.height();
+			return {
+				l: picL > txtL ? picL - txtL : 0,
+				r: picR < txtR ? picR - txtL : $txt.width(),
+				t: picT > txtT ? picT - txtT : 0,
+				b: picB < txtB ? picB - txtT : $txt.height()
+			}
+		}
+	}
+
+    // [NOTE] link mouse hover cursor
+    function offHoverList() {
+        const $thumb = $(this).find('.hover_img');
+        const $whiteTitle = $(this).find('.history_title_white');
+        gsap.to($thumb, { autoAlpha: 0 });
+        gsap.to($whiteTitle, { autoAlpha: 0 });
+    }
+
+    function onEnterLink() {
+        gsap.to($cursor, 0, { autoAlpha: 1 });
+    }
+
+    function onHoverLink(e) {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        gsap.to($cursor, 0, { top: `${mouseY}px`, left: `${mouseX}px`, autoAlpha: 1 });
+    }
+
+    function offEnterLink() {
+        gsap.to($cursor, 0, { autoAlpha: 0 });
+    }
+
+    // [NOTE] navigation events
+    function navigationHandler() {
+        // [NOTE] add sections offset
+        let arrTarget = [];
+        $('.history_nav a').each(function (i, target) {
+            setTimeout(function () {
+                const thisSection = $(target).attr('href').replace('#', '');   
+                let sectionTop = $(`#${thisSection}`).offset().top - 100;
+
+                arrTarget.push(sectionTop);
+            }, 300)
+        })
+
+
+        // [NOTE] go to section
+        $('.history_nav a').on('click', function () {
+            const index = $(this).parent().index();
+            $('.history_nav li').addClass('hidden');
+            $('.history_nav li').eq(index).removeClass('hidden').addClass('active');
+            $Locomotivescroll.scrollTo(arrTarget[index], { duration: 500, callback: function() {
+                setTimeout(function() {
+                    $('.history_nav li').removeClass('hidden');
+                }, 1000)
+            } });
+            return false;
+        });
+    }
+
+    return {
+        init: init
+    };
+})();
+
+document.addEventListener('DOMContentLoaded', _ => {
+    /* const header = document.querySelector('header');
+    header.style.transitionDuration = '0s';
+    Header.gnbHide();
+
+    setTimeout( _ => {
+        header.style.transition = 'transform .45s, background-color .25s';
+    }, 0 ); */
+
+    const header = document.querySelector('header');
+    gsap.set(header, {y:-85});
+    gsap.to(header, 0.45, {y:0, delay:3.7});
+});
+
+$(window).on('load', function () {
+    History.init();
+});

@@ -1,0 +1,77 @@
+var Popup = (function(){
+    function init() {
+        popupClose()
+        checkPopup()
+    }
+    
+    function setCookie(cookieName, cookieValue, dueTime){ 
+        let today = new Date(); 
+        let date = today.getDate(); 
+        today.setDate(date + dueTime); 
+        let duedate = today.toGMTString(); 
+        let cookieStack = cookieName +"="+ cookieValue +"; path=/; expires="+ duedate;
+        document.cookie = cookieStack; 
+        
+        return document.cookie
+    } 
+    
+    function isCookie(ckTxt){
+        let cookieCheck = document.cookie.indexOf(ckTxt);
+        return cookieCheck
+    };
+
+    function checkPopup(){
+        var popup0 = isCookie('popup0')
+        var popup1 = isCookie('popup1')
+
+        if(popup0 >= 0){
+            $(".popup0").remove(); 
+        }
+
+        if(popup1 >= 0){
+            $(".popup1").remove(); 
+        }
+
+        if(popup0 <= 0 || popup1 <= 0){
+            $("#popup_dim").css("display","flex")
+        }
+
+        if(popup0 >= 0 && popup1 >= 0){
+            $("#popup_dim").hide()
+        }
+
+        if($("#popup_container").children().length < 1) $("#popup_dim").hide()
+    }
+
+    function popupClose(){
+        $(".popup_btn").on("click",function(){
+            // let $locomotiveScroll = Scroll.initLocoScroll();
+            // let $locomotiveScroll = $locomotiveScroll.update();
+            // let $locomotiveScroll = new LocomotiveScroll();
+            let isChecked = $(this).siblings(".popup_hidden_check").find("input").is(":checked");
+
+            if(isChecked){
+                targetName = $(this).closest(".popup").data("popupnum");
+                setCookie(targetName, "noShow", 1);
+            }
+
+            // $locomotiveScroll.update()
+            $(this).closest(".popup").remove()
+            // console.log($locomotiveScroll)
+            // console.log($locomotiveScroll.update)
+            // console.dir($locomotiveScroll)
+            // console.log(ScrollTrigger)
+
+            if($("#popup_container").children().length < 1) $("#popup_dim").fadeOut()
+        })
+    }
+
+
+    return {
+        init:init
+    }
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+    Popup.init();
+});

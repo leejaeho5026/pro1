@@ -1,0 +1,38 @@
+//쿠키스크립트
+var cookie = {
+	set : function( name, value, expiredays ){
+		
+		if (expiredays) {
+			var todayDate = new Date();
+			todayDate.setDate(todayDate.getDate() + expiredays);
+			document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+		} else {
+			document.cookie = name + "=" + escape(value) + "; path=/;"
+		}
+	} , 
+
+	get : function( name ){
+		var nameOfCookie = name + "=";
+		var x = 0;
+		while ( x <= document.cookie.length ){
+			var y = (x+nameOfCookie.length);
+			if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+				if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+					endOfCookie = document.cookie.length;
+				return unescape( document.cookie.substring( y, endOfCookie ) );
+			}
+			x = document.cookie.indexOf( " ", x ) + 1;
+			if ( x == 0 )
+				break;
+		}
+		return null;
+	},
+
+	has: function (name) {
+		var val = cookie.get(name);
+		return val != null && val != "";
+
+	}
+
+
+}

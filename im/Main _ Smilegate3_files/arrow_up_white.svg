@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 17 14">
+    <defs>
+        <style>
+            .cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="그룹_1297" data-name="그룹 1297" transform="translate(-1837 -8627)">
+        <path id="사각형_1210" data-name="사각형 1210" transform="translate(1837 8627)" style="fill:none;opacity:.5" d="M0 0h17v14H0z"/>
+        <g id="그룹_246" data-name="그룹 246" transform="rotate(-45 11956.376 3710.34)">
+            <path id="사각형_244" data-name="사각형 244" class="cls-2" transform="translate(1322 39)" d="M0 0h7v1.6H0z"/>
+            <path id="사각형_245" data-name="사각형 245" class="cls-2" transform="rotate(-45 715.869 -1571.654)" d="M0 0h9v1.6H0z"/>
+            <path id="사각형_246" data-name="사각형 246" class="cls-2" transform="rotate(-90 686.7 -640.7)" d="M0 0h7v1.6H0z"/>
+        </g>
+    </g>
+</svg>

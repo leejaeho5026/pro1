@@ -1,0 +1,7 @@
+var PROPERTIES = {
+    'key-visual-01': {
+        ko: '글로벌 IP 명가를 향한 도전의 역사, 스마일게이트가 걸어온 길.',
+        en: 'The footprints Smilegate left as marching toward the center of the global market.',
+        ch: '向着全球化挑战的足迹, <br>Smilegate一路走来的历程',
+    }
+}

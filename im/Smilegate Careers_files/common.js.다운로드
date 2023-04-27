@@ -1,0 +1,147 @@
+//공통Script
+var common = {
+    isLogin: function () {
+        return isLogin;
+    },
+    checkLogin: function () {
+        if (!common.isLogin()) {
+            if (confirm("로그인이 필요합니다. \n로그인 페이지로 이동하시겠습니까?")) {
+                location.href = "/auth/login";
+            }
+            return false;
+        }
+
+        return true;
+    },
+    getCode: function (parentCode, attr1) {
+        return new Promise(function (resolve, reject) {
+            var getCodeUrl = "/api/common/code?parentCodeId=" + parentCode;
+            if (attr1) {
+                getCodeUrl += "&attr1=" + attr1
+            }
+
+            $.get({
+                type: "get",
+                url: getCodeUrl,
+                contentType: "application/json; charset=UTF-8",
+                success: function (data, textStatus, xhr) {
+                    //console.log("getCode success : " + data);
+                    //console.log("getCode success : " + textStatus);
+                    //console.log("getCode success : " + xhr);
+                    resolve(data)
+                },
+                /*
+                complete: function (xhr, textStatus) {
+                    console.log("getCode complete1", xhr);
+                    console.log("getCode complete2", textStatus);
+                },
+                error: function (xhr, errorName, error) {
+                    console.log("getCode error1", xhr);
+                    console.log("getCode error2", errorName);
+                    console.log("getCode error3", error);
+                }*/
+            });
+        });
+    },
+    getCodeNm: function (codeList, codeId) {
+        var target = codeList.filter(function (f) {
+            return f.codeId == codeId;
+        })
+        return target[0].codeNm;
+    },
+    copyObject: function (data) {
+        return JSON.parse(JSON.stringify(data));
+    }
+}
+var paramService = {
+    getParameter: function (sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    },
+    getParameterValues: function () {
+
+        var sPageURL = decodeURIComponent(window.location.search.substring(1));
+        //var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&')
+        var sParameterName = "";
+        var result = {};
+
+        for (var i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] != "" && sParameterName[1] !== undefined) {
+                result[sParameterName[0]] = sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+
+        return result;
+    }
+}
+
+//목록 파라미터 변수를 위한 referrer 체크
+//이전페이지 url이 상세에서 넘어왔는지 확인
+if (localStorage.getItem("referrerUrl")) {
+    if (localStorage.getItem("referrerUrl").replace("#", "").indexOf(location.href.replace("#", "")) < 0) {
+        localStorage.removeItem("referrerUrl");
+    }
+}
+
+//meta og:url 설정
+$('meta[property="og:url"]').attr('content', location.href);
+
+
+var fileService = {
+    checkExtName: function (ext, extList) {
+        var result = extList.filter(function (f) {
+            return ext.toLowerCase() == f.toLowerCase();
+        })
+        if (result.length < 1)
+            return false;
+        else
+            return true;
+    },
+    getExtName: function (fileName) {
+        var list = fileName.split('.');
+        return list[list.length - 1].toLowerCase();
+    }
+}
+
+//html tag 치환
+var unescapeHtml = function (target) {
+    if (target) {
+        return target.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\\\"").replace(/&nbsp;/g, " ");
+    } else {
+        return target;
+    }
+
+};
+
+//날짜포멧 리턴
+var tranDateFormat = function (date) {
+    if (!date) {
+        return;
+    }
+
+    if (typeof date != "string") {
+        return;
+    }
+
+    var dateReg = /[0-9]{4}.[0-9]{2}.[0-9]{2}/;
+
+    if (dateReg.test(date)) {
+        return date;
+    }
+
+    return date.replace(/(\d{4})(\d{2})(\d{2})/g, '$1.$2.$3');
+}
+

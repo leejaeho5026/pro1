@@ -1,0 +1,119 @@
+var PROPERTIES = {
+    'di-01': {
+        ko: '모두를 위한 즐거움',
+        en: ' ',
+        ch: '将快乐带给大家',
+    },
+    'di-02': {
+        ko: `스마일게이트의 다양성과 포용성`,
+        en: `Diversity and Inclusion <br>at Smilegate`,
+        ch: 'Smilegate 的多元化及包容性'
+    },
+    'di-03': {
+        ko: `스마일게이트는 문화 콘텐츠로 전 세계 더 많은 사람들이 행복하길 꿈꾸는 글로벌 엔터테인먼트 그룹입니다.<br>
+        그 누구도 우리가 만든 콘텐츠를 경험하는 즐거움에서 배제되거나 소외되지 않도록 진심으로 고민합니다.<br>
+        <br>
+        스마일게이트는 개개인의 고유함을 존중합니다.<br>
+        다름을 포용하는 힘으로 더 많은 사람들이 연결될 때, 함께 즐기는 행복은 커지고 <br>
+        그 행복한 경험들이 모여 미래는 더욱 즐거워질 것입니다.`,
+        en: `Smilegate is a global entertainment group that dreams of bringing happiness to more people around the globe through cultural content.<br>
+        We're dedicated to making sure that nobody is excluded or marginalized from the joy of experiencing the content we create.<br><br>
+        Smilegate respects the uniqueness of each individual.<br>
+        When more people become connected through the power of embracing differences, <br>our collective happiness will be greater and those happy experiences will build a joyful future.`,
+        ch: `Smilegate是一家全球化的娱乐集团，致力于用文化内容让全世界更多的人获得幸福。<br>
+        我们认真思索如何让所有人无一例外地体验到我们所做内容的乐趣。
+        <br><br>
+        Smilegate尊重每个人的独特性。<br>
+        当拥抱差异的力量将更多人连接起来时，同享的幸福就会增加，<br>
+        那些幸福的经历聚集起来，未来就会变得更加快乐。`
+    },
+    'di-00':{
+        ko: 'Diversity and Inclusion at Smilegate',
+        en: ' ',
+        ch : 'Diversity and Inclusion at Smilegate'
+    },
+    'di-04':{
+        ko: '포용적인 창작 환경 조성',
+        en: 'Building an Inclusive <br>Creative Environment',
+        ch : '营造包容的创作环境'
+    },
+    'di-05':{
+        ko: `개인의 다름을 존중하고 포용하는 일터를 만들어 가는 것이 스마일게이트가<br>
+        D&I 가치를 실천하는 방식입니다. 스마일게이트 구성원들은 ‘나다움’을 강점으로 발휘하며<br>
+        저마다의 다양한 생각이 존중 받는 문화를 만들기 위해 노력합니다.`,
+        en: `Smilegate is achieving its D&I values by building a workplace <br>where individual differences are respected and embraced.
+<br>
+        Employees of Smilegate utilize their ‘individualities’ as strengths <br>and strive to build a culture where diverse individual thoughts are respected.`,
+        ch : `创建尊重和包容个体差异的职场是Smilegate践行D&I价值的方式。<br>
+        Smilegate成员把“做自己”当作优势发挥，努力创造一种各自不同的想法都得到尊重的文化。`
+    },
+    'di-06':{
+        ko: `스마일게이트 D&I 프로그램들`,
+        en: `Smilegate D&I Programs`,
+        ch : `Smilegate D&I 活动`
+    },
+    'program-01': {
+        ko: `혹시 모를 내안의<br>
+        무의식적 편견 이해`,
+        en: 'Understanding subconscious prejudice within myself',
+        ch: '了解自己内心可能存在的无意识偏见',
+    },
+    'program-02': {
+        ko: `뉴로다이버시티<br>
+        (Neurodiversity)이해`,
+        en: 'Understanding <br>neurodiversity',
+        ch: '了解神经多样性（Neurodiversity）',
+    },
+    'program-03': {
+        ko: `문화다양성<br>
+        인식 주간`,
+        en: 'Cultural Diversity Awareness Week',
+        ch: '文化多样性认识周',
+    },
+    'program-04': {
+        ko: `포용적 리더십<br>
+        행동 넛지`,
+        en: 'Nudging inclusive leadership behaviors',
+        ch: '推动包容性领导力行为',
+    },
+    'program-05': {
+        ko: `신규 입사자를 위한<br>
+        스마일게이트 D&I 바로알기`,
+        en: 'Understanding Smilegate D&I for new employees',
+        ch: '帮助新员工快速了解<br>Smilegate D&I',
+    },
+    'program-06': {
+        ko: `창작자를 위한<br>
+        문화다양성 워크숍`,
+        en: 'Cultural diversity workshop <br>for creators',
+        ch: '为创作者准备的文化多样性研讨会',
+    },      
+    'di-07': {
+        ko: '스마일게이트 D&I Council',
+        en: 'Smilegate D&I Council',
+        ch: 'Smilegate D&I 委员会',
+    },
+    'di-08': {
+        ko: `스마일게이트는 IP/콘텐츠와 서비스를 통해 다양성을 추구하고,<br> 
+        구성원의 다름이 포용 되는 환경을 만들어가기 위해<br> 
+        다양성과 포용성 위원회를 운영하고 있습니다.`,
+        en: `Smilegate operates the Smilegate D&I Council 
+        to pursue diversity through IP/content and services, and
+        to build an environment where differences between members of our society are embraced.`,
+        ch: `Smilegate通过IP/内容和服务追求多样性，<br>
+        为了创造一个包容成员差异的环境，<br>
+        运营着多样性和包容性委员会。`,
+    },
+    'di-09': {
+        ko: `문화다양성 표현 및<br>
+        감수성 증진 & 접근성 향상`,
+        en: 'Improving expressions and sensitivity for cultural diversity and accessibility',
+        ch: '展现文化多样性及增强感受性<br>&提高可达性',
+    },
+    'di-10': {
+        ko: `포용적 제도/정책/시스템<br>
+        정교화​ 및 구성원 D&I 인식 향상​`,
+        en: 'Improving inclusivity plans/<br>policies/systems and <br>the D&I awareness of employees',
+        ch: '完善包容性制度/政策/<br>系统及提高成员D&I意识',
+    }
+}

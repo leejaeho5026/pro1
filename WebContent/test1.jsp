@@ -20,7 +20,7 @@
 		Class.forName(driver);
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
-			sql = "select * from member";
+			sql = "select * from pro1.member";
 			try {
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();	
@@ -53,7 +53,7 @@ th { background-color:#333; color:#fff; }
 	<hr>
 	<table>
 		<thead>
-			<tr><th>회원명</th><th>전화번호</th><th>이메일</th></tr>
+			<tr><th>아이디</th><th>비밀번호</th><th>이름</th><th>주소</th><th>이메일</th></tr>
 		</thead>
 		<tbody>
 <%

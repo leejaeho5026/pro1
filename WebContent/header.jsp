@@ -2,8 +2,10 @@
     pageEncoding="utf-8"%>
 <%
 	String id = "";
+	String name = "";
 	if(session.getAttribute("id")!=null) {
 		id = (String) session.getAttribute("id");
+		name = (String) session.getAttribute("name");
 	}
 	String path1 = request.getContextPath();
 %>
@@ -14,12 +16,12 @@
 <%
 	if(id.equals("admin") && id != "") {
 %>
-						<li><a href="<%=path1 %>/admin/index.jsp">관리자</a></li>
+						<li><a href="<%=path1 %>/admin/index.jsp">관리자</a></li> 
 <%
 	}
 %>
 <% if(id != "") { %>
-                        <li><a href="<%=path1 %>/mypage.jsp">마이페이지</a></li>
+                        <li><a href="<%=path1 %>/mypage.jsp">마이페이지</a></li>  
                         <li><a href="<%=path1 %>/logout.jsp">로그아웃</a></li>
 <% } else if(!(id.equals("admin"))){ %>
                         <li><a href="<%=path1 %>/login.jsp">로그인</a></li>
@@ -63,13 +65,13 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li><a href="<%=path1 %>/newsroom.jsp">뉴스룸</a>
+                            <li><a href="<%=path1 %>/board/newsroom.jsp">뉴스룸</a>
                                 <div class="sub item3">
                                     <ul class="dp2">
-                                        <li><a href="<%=path1 %>/newsroom.jsp#page1">보도자료</a></li>
-                                        <li><a href="<%=path1 %>/newsroom.jsp#page2">미디어</a></li>
-                                        <li><a href="<%=path1 %>/newsroom.jsp#page3">홍보영상/브로슈어</a></li>
-                                        <li><a href="<%=path1 %>/newsroom.jsp#page4">공지사항</a></li>
+                                        <li><a href="<%=path1 %>/board/newsroom.jsp#page1">보도자료</a></li>
+                                        <li><a href="<%=path1 %>/board/newsroom.jsp#page2">미디어</a></li>
+                                        <li><a href="<%=path1 %>/board/newsroom.jsp#page3">홍보영상/브로슈어</a></li>
+                                        <li><a href="<%=path1 %>/board/newsroom.jsp#page4">공지사항</a></li>
                                     </ul>
                                 </div>
                             </li>

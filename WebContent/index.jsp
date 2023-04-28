@@ -1,33 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
 %>
 <!DOCTYPE html>
-<html >
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>포트폴리오 - 스마일게이트</title>
+    <title>CJ프레시웨이</title>
     <!-- 문서 정보 등록 -->
     <!-- 검색엔진최적화(Search Engine Optimization) : SEO -->
     <meta name="subject" content="CJ프레시웨이 벤치마킹 사이트">
     <meta name="keywords" content="CJ프레시웨이, 식품, 식단, 주문제작">
     <meta name="description" content="CJ프레시웨이는 좋은 식자재를 유통하며, 건강하고 맛있는 식문화를 창출하는 대한민국 최고의 글로벌 식자재 유통 및 푸드서비스 전문 기업입니다.
     ">
-    <meta name="author" content="mr. lee">
+    <meta name="author" content="mr. kim">
 
     <!-- 파비콘(favicon) 설정 -->
-    <link rel="shortcut icon" href="<%=path %>/im/220921_press_000.jpg">
+    <link rel="shortcut icon" href="<%=path %>/images/favicon.ico">
 
     <!-- https://okgunyang.github.io/web1 -->
     <!-- 오픈그래프 설정 -->
     <meta name="og:site_name" content="사이트이름">
-    <meta name="og:title" content="포트폴리오 - 스마일게이트">
+    <meta name="og:title" content="포트폴리오 - CJ프레시웨이">
     <meta name="og:description" content="CJ프레시웨이는 좋은 식자재를 유통하며, 건강하고 맛있는 식문화를 창출하는 대한민국 최고의 글로벌 식자재 유통 및 푸드서비스 전문 기업입니다.">
     <mata name="og:url" content="https://okgunyang.github.io/web1">
-    <mata name="og:image" content="<%=path %>/im/12345.jpg">  
+    <mata name="og:image" content="<%=path %>/images/thumbnail.jpg">  
           
     <!-- 기본 폰트 및 초기화 로딩 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,96 +36,91 @@
     <!-- 스타일 초기화 -->
     <!-- reset.css나 normalize.css를 CDN 또는 다운로드 받아 link로 연결 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="<%=path %>/common.css">
+    <link rel="stylesheet" href="<%=path %>/main.css">
     <style>
-  
+    /* 내부 스타일 */
     </style>
 </head>
 <body>
-
+    <div class="container">
+		<%@ include file="./header.jsp" %>
         <div class="content">
-    /*	<%@ include file="./header.jsp" %> */
             <figure class="vs">
                 <div class="img_box">
-                    <video src="<%=path %>/im/YUA.mp4" muted autoplay loop></video>
+                    <video src="<%=path %>/im/main.mp4" muted autoplay loop></video>
                 </div>
             </figure>
             <section class="page" id="page1">
-                <h2 class="page_title" style="display:none;">DISCOVER MEGA VALUE</h2>
+                <h2 class="page_title" style="display:none;">SOLUTION</h2>
                 <div class="page_wrap">
                     <div class="tit_box">
-                        <h3 class="sub_title">ABOUT</h3>
-                        <h2 class="main_title">SMILEGATE NOW</h2>
+                        <h3 class="sub_title">BUSINESS</h3>
+                        <h2 class="main_title">SOLUTION</h2>
                     </div>
                     <article class="pg1_btn_box">
                         <input type="radio" name="pg_ra" id="pg1_ra1" class="pg1_ra" checked>
-                        <label for="pg1_ra1" class="item1">Smilegate</label>
+                        <label for="pg1_ra1" class="item1">CJ프레시웨이</label>
                         <input type="radio" name="pg_ra" id="pg1_ra2" class="pg1_ra">
-                        <label for="pg1_ra2" class="item2">YNA</label>
+                        <label for="pg1_ra2" class="item2">식자재 유통 솔루션</label>
                         <input type="radio" name="pg_ra" id="pg1_ra3" class="pg1_ra">
-                        <label for="pg1_ra3" class="item3">PLATFORM</label>
+                        <label for="pg1_ra3" class="item3">푸드 서비스 솔루션</label>
                         <input type="radio" name="pg_ra" id="pg1_ra4" class="pg1_ra">
-                        <label for="pg1_ra4" class="item4">LET’S PLAY
-                            PLAYSHOP</label>
+                        <label for="pg1_ra4" class="item4">상품 구매</label>
                         <input type="radio" name="pg_ra" id="pg1_ra5" class="pg1_ra">
-                        <label for="pg1_ra5" class="item5">DELIGHT EVERYONE</label>
+                        <label for="pg1_ra5" class="item5">식품 안전</label>
                         <input type="radio" name="pg_ra" id="pg1_ra6" class="pg1_ra">
-                        <label for="pg1_ra6" class="item6">HISTORY</label>
+                        <label for="pg1_ra6" class="item6">물류 시스템</label>
                         <div class="ban_fr">
                             <ul class="ban_box">
                                 <li class="item1">
-                                    <img src="<%=path %>/im/banner-img-1.png" alt="스마일게이트" class="pic">
+                                    <img src="<%=path %>/images/main_solution_01.jpg" alt="CJ프레이시웨이" class="pic">
                                     <div class="ban_tit_box">
                                         <h2 class="ban_tit1">01</h2>
-                                        <h2 class="ban_tit2">Smilegate</h2>
-                                        <p class="ban_com">글로벌 엔터테인먼트 기업으로서
-                                            더 나은 내일을<br> 만들기 위한 스마일게이트의 오늘을 소개합니다.
+                                        <h2 class="ban_tit2">CJ프레시웨이</h2>
+                                        <p class="ban_com">Food Business Partner<br>
+                                            Creating the Success Way
                                         </p>
                                     </div>
                                 </li>
                                 <li class="item2">
-                                    <img src="<%=path %>/im/221115_press_000.jpg" alt="YNA" class="pic">
+                                    <img src="<%=path %>/images/main_solution_02.jpg" alt="식자재 유통 솔루션" class="pic">
                                     <div class="ban_tit_box">
                                         <h2 class="ban_tit1">02</h2>
-                                        <h2 class="ban_tit2">DISCOVER  MEGA VALUE</h2>
-                                        <p class="ban_com">스마일게이트 인베스트먼트는 혁신 기업에 적극 투자하며 MEGA VALUE를 발굴하고, 
-                                            스타트업이 유니콘으로 성장하도록 체계적인 지원을 하고 있습니다.
-                                            </p>
+                                        <h2 class="ban_tit2">식자재 유통 솔루션</h2>
+                                        <p class="ban_com">고객 맞춤 최적의 식자재 유통 솔루션</p>
                                     </div>
                                 </li>
                                 <li class="item3">
-                                    <img src="<%=path %>/im/kv-bg4.jpg" alt="LET’S PLAY
-                                    PLAYSHOP" class="pic">
+                                    <img src="<%=path %>/images/main_solution_03.jpg" alt="푸드 서비스 솔루션" class="pic">
                                     <div class="ban_tit_box">
                                         <h2 class="ban_tit1">03</h2>
-                                        <h2 class="ban_tit2">LET’S PLAY
-                                            PLAYSHOP</h2>
-                                        <p class="ban_com">스마일게이트는 스토브, 스토브인디, 피풀 등 다양한 <br>플랫폼으로 유저에게는 자유로운 소통을 할 수 있는<br> 소셜 기능을,
-                                            게임 개발사에게는 편리한 개발과 마케팅 환경을 제공합니다.</p>
+                                        <h2 class="ban_tit2">푸드 서비스 솔루션</h2>
+                                        <p class="ban_com">다양한 경로 맞춤 전문적인 푸드 서비스 솔루션</p>
                                     </div>
                                 </li>
                                 <li class="item4">
-                                    <img src="<%=path %>/im/44444.JPG" alt="IP BUSINESS&TECH" class="pic">
+                                    <img src="<%=path %>/images/main_solution_04.jpg" alt="상품 구매" class="pic">
                                     <div class="ban_tit_box">
                                         <h2 class="ban_tit1">04</h2>
-                                        <h2 class="ban_tit2">LET’S PLAY
-                                            PLAYSHOP</h2>
-                                        <p class="ban_com">스마일게이트는 2022년 임직원들에게 최대 250만 원의 여행 경비와 4일간의 유급휴가를 지원했습니다.</p>
+                                        <h2 class="ban_tit2">상품 구매</h2>
+                                        <p class="ban_com">높은 품질 기준으로 차별화된 상품 경쟁력</p>
                                     </div>
                                 </li>
                                 <li class="item5">
-                                    <img src="<%=path %>/im/di01.png" alt="DELIGHT EVERYONE" class="pic">
+                                    <img src="<%=path %>/images/main_solution_05.jpg" alt="식품 안전" class="pic">
                                     <div class="ban_tit_box">
                                         <h2 class="ban_tit1">05</h2>
-                                        <h2 class="ban_tit2">DELIGHT EVERYONE</h2>
-                                        <p class="ban_com">모두를 위한 즐거움</p>
+                                        <h2 class="ban_tit2">식품 안전</h2>
+                                        <p class="ban_com">업계 최고 수준의 식품 안전 솔루션</p>
                                     </div>
                                 </li>
                                 <li class="item6">
-                                    <img src="<%=path %>/im/1223331111.PNG" alt="HISTORY" class="pic">
+                                    <img src="<%=path %>/images/main_solution_06.jpg" alt="물류 시스템" class="pic">
                                     <div class="ban_tit_box">
                                         <h2 class="ban_tit1">06</h2>
-                                        <h2 class="ban_tit2">THE GREAT EVOLUTION</h2>
-                                        <p class="ban_com">글로벌 IP 명가를 향한 도전의 역사, 스마일게이트가 걸어온 길.</p>
+                                        <h2 class="ban_tit2">물류 시스템</h2>
+                                        <p class="ban_com">품질과 안전을 지키는 선진 물류 솔루션</p>
                                     </div>
                                 </li>
                             </ul>
@@ -137,36 +132,35 @@
                 <h2 class="page_title" style="display:none">ESG</h2>
                 <div class="page_wrap">
                     <div class="tit_box">
-                        <h3 class="sub_title">HISYTOR</h3>
-                        <h2 class="main_title">BUSINESS</h2>
+                        <h3 class="sub_title">ESG</h3>
+                        <h2 class="main_title">SUSTAINABILITY</h2>
                     </div>
-                    <!-- article.grid_fr>ul.grid_box>li*3>(a.item$>h3.grid_tit+p.grid_com)*2 -->
                     <article class="grid_fr">
                         <ul class="grid_box">
                             <li>
                                 <a href="" class="item1">
-                                    <h3 class="grid_tit">게임</h3>
-                                    <p class="grid_com">The Stylish Fantasy World</p>
+                                    <h3 class="grid_tit">ESG 전략</h3>
+                                    <p class="grid_com">건강한 식문화와 지속가능한 유통</p>
                                 </a>
                                 <a href="" class="item2">
-                                    <h3 class="grid_tit">IP비즈니스&테크</h3>
-                                    <p class="grid_com">GLOBAL NO.1 FPS</p>
+                                    <h3 class="grid_tit">주요 활동 및 성과</h3>
+                                    <p class="grid_com">ESG 전략에 따른 다양한 활동</p>
                                 </a>
                             </li>
                             <li>
                                 <a href="" class="item3">
-                                    <h3 class="grid_tit">투자</h3>
-                                    <p class="grid_com">블록버스터 MMORPG</p>
+                                    <h3 class="grid_tit">사회공헌</h3>
+                                    <p class="grid_com">지역 사회의 가치 창출을 위한 활동</p>
                                 </a>
                             </li>
                             <li>
                                 <a href="" class="item4">
-                                    <h3 class="grid_tit">플랫폼</h3>
-                                    <p class="grid_com">아름다운 동화나라 속 모험!</p>
+                                    <h3 class="grid_tit">윤리경영</h3>
+                                    <p class="grid_com">우리 사회의 가치를 높이는 경영</p>
                                 </a>
                                 <a href="" class="item5">
-                                    <h3 class="grid_tit">슈퍼탱크대작전</h3>
-                                    <p class="grid_com">BE A SUPERTANKER</p>
+                                    <h3 class="grid_tit">보고서 및 정책</h3>
+                                    <p class="grid_com">지속가능경영의 발자취</p>
                                 </a>
                             </li>
                         </ul>
@@ -178,52 +172,50 @@
                 <div class="page_wrap">
                     <div class="tit_box">
                         <h3 class="sub_title">IR</h3>
-                        <h2 class="main_title" style="color:#fff">GAME</h2>
+                        <h2 class="main_title" style="color:#fff">INVESTOR RELATIONS</h2>
                     </div>
-                    <!-- article.col_fr>ul.col_box>li.left+li.right -->
                     <article class="col_fr">
                         <ul class="col_box">
                             <li class="left">
-                                <p class="one_line"><span class="dot">GAME
-                                    </span> <span class="gtxt">& TECH</span></p>
+                                <p class="one_line"><span class="dot">CJ프레시웨이</span> <span class="gtxt">051500</span></p>
                                 <div class="inv_p">
-                                    <p class="large_txt">Smilegate</p>
+                                    <p class="large_txt">29,300</p>
                                     <p class="small_txt">
-                                        <span class="ltxt">스마일게이트는 즐거움을 선사합니다.</span><br>
-                                   
+                                        <span class="ltxt">2023/04/18 14:59:25</span><br>
+                                        <span class="btxt">─ 0 &nbsp; &nbsp; 0.00%</span>
                                     </p>
                                 </div>
                                 <dl class="col_dl">
                                     <dd>
-                                        <h4 class="d_tit">GLOBAL NO.1FPS</h4>
-                                        <p class="d_com">크로스파이어</p>
+                                        <h4 class="d_tit">시가</h4>
+                                        <p class="d_com">29,300원</p>
                                     </dd>
                                     <dd>
-                                        <h4 class="d_tit">블록버스터 MMORPG</h4>
-                                        <p class="d_com">로스트아크</p>
+                                        <h4 class="d_tit">고가</h4>
+                                        <p class="d_com">29,450원</p>
                                     </dd>
                                     <dd>
-                                        <h4 class="d_tit">The Stylish Fantasy World</h4>
-                                        <p class="d_com">마술양품점</p>
+                                        <h4 class="d_tit">저가</h4>
+                                        <p class="d_com">29,100원</p>
                                     </dd>
                                     <dd>
-                                        <h4 class="d_tit">아름다운 동화나라 속 모험</h4>
-                                        <p class="d_com">테일즈런너</p>
+                                        <h4 class="d_tit">전일가격</h4>
+                                        <p class="d_com">29,300원</p>
                                     </dd>
                                     <dd>
-                                        <h4 class="d_tit">BE A SUPERTANKER</h4>
-                                        <p class="d_com">슈퍼탱크대작전</p>
+                                        <h4 class="d_tit">거래량</h4>
+                                        <p class="d_com">21,577주</p>
                                     </dd>
                                     <dd>
-                                        <h4 class="d_tit">당신이 꿈꿔왔던 게임</h4>
-                                        <p class="d_com">에픽세븐</p>
+                                        <h4 class="d_tit">거래대금</h4>
+                                        <p class="d_com">631,137,050원</p>
                                     </dd>
                                 </dl>
                             </li>
                             <li class="right">
-                                <a href="" class="item1"><span>STOVE</span></a>
-                                <a href="" class="item2"><span>크로스파이어X</span></a>
-                                <a href="" class="item3"><span>인디게임</span></a>
+                                <a href="" class="item1"><span>재무제표</span></a>
+                                <a href="" class="item2"><span>공시현황</span></a>
+                                <a href="" class="item3"><span>IR자료실</span></a>
                             </li>
                         </ul>
                     </article>
@@ -234,10 +226,9 @@
                 <div class="page_wrap">
                     <div class="tit_box">
                         <h3 class="sub_title">PRESS</h3>
-                        <h2 class="main_title">NEWSROOM</h2>
+                        <h2 class="main_title">NOW IS</h2>
                     </div>
                     <a href="" class="more">+</a>
-                   
                     <article class="board_fr">
                         <table class="tb1">
                             <tbody>
@@ -245,8 +236,8 @@
                                     <td class="td1">5</td>
                                     <td class="td2">
                                         <a href="">
-                                            <h3 class="td_tit">Smilegate 희망스튜디오</h3>
-                                            <p class="td_com">국지역아동센터협의회에 제 14회 광주비엔날레 입장권 1,000장 기부</p>
+                                            <h3 class="td_tit">CJ프레시웨이, 외식기업 대상 맞춤형 메뉴 컨설팅 호응</h3>
+                                            <p class="td_com">전문 셰프가 만든 우리 매장 신메뉴 CJ프레시웨이, 외식기업 대상 맞춤형 메뉴 컨설팅 ‘호응’ 외식기업 대상 전문 셰프 노하우 담은 메뉴 개발 지원 주점 프랜차이즈 ‘탄광맥주’에</p>
                                         </a>
                                     </td>
                                 </tr>
@@ -298,7 +289,6 @@
                         <h3 class="sub_title">CS CENTER</h3>
                         <h2 class="main_title">고객상담센터</h2>
                     </div>
-                    
                     <article class="colm_fr">
                         <h3 class="lst_tit">비즈니스 상담센터</h3>
                         <ul class="lst1">
@@ -330,17 +320,11 @@
                                 <a href="" class="item_more">보러가기</a>
                             </li>
                         </ul>
-            <article class="row row3">
-                <div class="ft_wrap">
-                    <div class="ft_logo left"></div>
-                    <address class="copyright right">서울시 마포구 월드컵북로 54길 25 S-city   COPYRIGHT© CJ FRESHWAY. ALL RIGHTS RESERVED.</address>
+                    </article>
                 </div>
-            </article>
-        </footer>
-    </div>
-    <div class="fix_area">
-        <a href="#page5" class="cir_box counsel">고객<br>상담센터</a>
-        <a href="#" class="cir_box totop">↑<br>TOP</a>
+            </section>
+        </div>
+        <%@ include file="./footer.jsp" %>
     </div>
 </body>
 </html>
